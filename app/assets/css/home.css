@@ -1,0 +1,291 @@
+main {
+    display: flex;
+    justify-content: center;
+    padding-top: 46px;
+}
+
+/* BACKGROUND */
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -50;
+    animation: transformUnset .7s both;
+}
+
+@keyframes transformUnset {
+    100% {
+        transform: unset;
+    }
+}
+
+.circle:first-child {
+    width: 335px;
+    height: 335px;
+    left: -127px;
+    top: 10px;
+    transform: translateX(-100%);
+    animation-delay: .2s;
+}
+
+.circle:nth-child(2) {
+    width: 259px;
+    height: 259px;
+    left: -127px;
+    top: 296px;
+    z-index: -49;
+    transform: translateX(-100%);
+}
+
+.circle:nth-child(3) {
+    width: 357px;
+    height: 357px;
+    right: -86px;
+    bottom: -163px;
+    transform: translateX(100%);
+}
+
+.circle:nth-child(4) {
+    width: 164px;
+    height: 164px;
+    right: -86px;
+    bottom: 123px;
+    z-index: -49;
+    transform: translateX(100%);
+    animation-delay: .2s;
+}
+
+.circle_blue {
+    background-color: var(--blue_400);
+    border: 3px solid var(--blue_600);
+}
+
+.circle_orange {
+    background-color: var(--orange_400);
+    border: 3px solid var(--orange_600);
+}
+
+.circle_pink {
+    background-color: var(--pink_400);
+    border: 3px solid var(--pink_600);
+}
+
+.circle_yellow {
+    background-color: var(--yellow_400);
+    border: 3px solid var(--yellow_600);
+}
+
+/* BENTO */
+
+.bento_grid {
+    display: flex;
+    gap: 16px;
+}
+
+.bento_grid>article {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bento {
+    display: flex;
+    overflow: hidden;
+    border-radius: 24px;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px rgba(19, 19, 19, 0.25);
+}
+
+/* AUTHORS BENTO */
+
+.authors_bento {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    width: 200px;
+    height: 400px;
+    padding-top: 16px;
+    background: linear-gradient(var(--green_400), var(--green_500));
+    color: var(--green_600);
+    font-family: "Barrio", system-ui;
+    font-size: 20px;
+    transform: translateX(40%);
+    animation: transformUnset .7s both;
+}
+
+.authors_bento h2 {
+    margin-right: 16px;
+}
+
+/* LOAN USER BENTO */
+
+.loan_bento {
+    width: 416px;
+    height: 200px;
+    background: linear-gradient(-90deg, var(--yellow_500), var(--yellow_400));
+    justify-content: left;
+    align-items: end;
+    padding: 16px;
+    color: var(--yellow_600);
+    font-family: "Barrio", system-ui;
+    font-size: 20px;
+    transform: translateY(-30%);
+    animation: transformUnset .7s both;
+}
+
+/* CHARGED USER BENTO */
+
+.charged_users_bento {
+    flex-direction: column;
+    justify-content: end;
+    gap: 8px;
+    align-items: start;
+    width: 200px;
+    height: 200px;
+    padding: 16px;
+    gap: 8px;
+    background-color: var(--pink_400);
+    color: var(--pink_600);
+    font-family: "Supermercado One", serif;
+    font-size: 18px;
+    position: relative;
+    transform: translateX(70%);
+    animation: transformUnset .7s both;
+}
+
+.charged_users_bento span {
+    font-size: 100px;
+    font-family: "Barrio", system-ui;
+}
+
+.bento_circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--pink_500);
+    width: 87px;
+    height: 87px;
+    animation: none;
+    transform: unset;
+    top: -25px;
+    left: 131px;
+}
+
+.left_bottom {
+    display: flex;
+    gap: 16px;
+}
+
+.left_bottom_right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* CATALOG BENTO */
+
+.catalog_bento {
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 84px;
+    width: 200px;
+    height: 400px;
+    padding: 16px;
+    background: linear-gradient(var(--blue_500), var(--blue_400));
+    color: var(--blue_600);
+    font-family: "Barrio", system-ui;
+    font-size: 20px;
+    transform: translateX(-70%);
+    animation: transformUnset .7s both;
+}
+
+.catalog_bento h2 {
+    text-align: left;
+    width: 100%;
+}
+
+/* USERS BENTO */
+
+.users_bento {
+    width: 200px;
+    height: 200px;
+    padding: 16px;
+    align-items: end;
+    color: var(--yellow_600);
+    font-family: "Barrio", system-ui;
+    background: linear-gradient(var(--yellow_500), var(--yellow_400));
+    font-size: 20px;
+    transform: translateY(50%);
+    animation: transformUnset .7s both;
+}
+
+/* CHARGED BOOKS BENTO */
+
+.charged_books_bento {
+    width: 200px;
+    height: 84px;
+    background: linear-gradient(-90deg, var(--pink_500), var(--pink_400));
+    padding: 16px;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--pink_600);
+    font-size: 18px;
+    font-family: "Supermercado One", serif;
+    transform: translateX(50%);
+    animation: transformUnset .7s both;
+}
+
+.charged_books_bento span {
+    font-size: 32px;
+    font-family: "Barrio", system-ui;
+}
+
+/* ACTIVE LOANS BENTO */
+
+.active_loans_bento {
+    width: 200px;
+    height: 84px;
+    background-color: var(--green_400);
+    color: var(--green_600);
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+    padding: 16px;
+    font-size: 18px;
+    font-family: "Supermercado One", serif;
+    position: relative;
+    transform: translateX(-50%);
+    animation: transformUnset .7s both;
+}
+
+.active_loans_bento::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30px;
+    transform: rotate(-60deg);
+    width: 200px;
+    height: 50%;
+    background-color: var(--green_500);
+}
+
+.active_loans_bento::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 60px;
+    transform: rotate(-60deg);
+    width: 200px;
+    height: 50%;
+    background-color: var(--green_500);
+}
+
+.active_loans_bento span {
+    font-size: 32px;
+    font-family: "Barrio", system-ui;
+    z-index: 1;
+}
+
+.active_loans_bento h4 {
+    z-index: 1;
+}

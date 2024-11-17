@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    <title>Biblioteca | Alfonsina Storni</title>
+    <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+
+<body>
+    <header>
+        <img src="assets/images/icons/Burger.svg" alt="Burger Menu">
+        <h1>Biblioteca - Alfonsina Storni</h1>
+        <img src="assets/images/icons/User.svg" alt="User Menu">
+    </header>
+
+    <main>
+        <div class="circle circle_blue"></div>
+        <div class="circle circle_orange"></div>
+        <div class="circle circle_pink"></div>
+        <div class="circle circle_yellow"></div>
+
+        <section class="bento_grid">
+            <article class="left">
+                <div class="bento loan_bento">
+                    <h2>Prestámos</h2>
+                </div>
+
+                <article class="left_bottom">
+                    <div class="bento catalog_bento">
+                        <img src="assets/images/books.png" alt="Books">
+                        <h2>Catálogo</h2>
+                    </div>
+
+                    <article class="left_bottom_right">
+                        <div class="bento charged_books_bento">
+                            <span id="charged_books_n">0</span>
+                            <h4>Libros cargados</h4>
+                        </div>
+
+                        <div class="bento active_loans_bento">
+                            <span id="active_loans_n">0</span>
+                            <h4>Préstamos activos</h4>
+                        </div>
+
+                        <div class="bento users_bento">
+                            <h2>Usuarios</h2>
+                        </div>
+                    </article>
+                </article>
+            </article>
+
+            <article class="right">
+                <div class="bento authors_bento">
+                    <h2>Autores</h2>
+                    <img src="assets/images/alfonsina_storni.webp" alt="Alfonsina Storni">
+                </div>
+
+                <div class="bento charged_users_bento">
+                    <div class="bento_circle"></div>
+                    <span id="charged_users_n">0</span>
+                    <h4>Usuarios cargados</h4>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+
+</html>
