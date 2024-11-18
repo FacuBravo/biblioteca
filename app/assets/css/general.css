@@ -1,6 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Supermercado+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Barrio&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Supermercado+One&display=swap');
+@font-face {
+    font-family: 'Barrio';
+    src: url('../fonts/Barrio/Barrio-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Supermercado One';
+    src: url('../fonts/Supermercado_One/SupermercadoOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Assistant';
+    src: url('../fonts/Assistant/static/Assistant-Regular.ttf') format('truetype');
+}
 
 * {
     margin: 0;
@@ -36,6 +47,7 @@ body {
     height: 100vh;
     background-color: var(--white);
     overflow-x: hidden;
+    user-select: none;
 }
 
 ::-webkit-scrollbar {

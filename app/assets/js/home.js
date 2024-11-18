@@ -18,3 +18,11 @@ function showUserMenu() {
         mainNav.classList.add('navHide')
     }
 }
+
+getUsers()
+
+function getUsers() {
+    window.electronAPI.getUsers((users) => {
+        console.log(users)
+    })
+}

@@ -15,7 +15,7 @@ const createWindow = () => {
     })
 
     mainWindow.loadFile('app/home.html')
-    Menu.setApplicationMenu(null)
+    // Menu.setApplicationMenu(null)
 }
 
 app.whenReady().then(() => {
@@ -29,6 +29,18 @@ app.whenReady().then(() => {
     })
 
     createWindow()
+})
+
+ipcMain.handle('get-users', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM user', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
 })
 
 app.on('window-all-closed', () => {
