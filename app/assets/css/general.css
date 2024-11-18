@@ -92,6 +92,7 @@ nav {
 .userNav {
     right: 0;
     border: 0;
+    padding-left: 24px;
     border-bottom-left-radius: 20px;
     border-left: 3px solid var(--green_600);
     border-bottom: 3px solid var(--green_600);
@@ -123,6 +124,11 @@ nav a {
     gap: 12px;
     font-size: 20px;
     font-family: "Supermercado One", serif;
+    transition: scale .3s;
+}
+
+nav a:hover {
+    scale: 1.07;
 }
 
 nav .home_a {
