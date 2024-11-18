@@ -49,16 +49,17 @@ header {
     justify-content: space-between;
     padding: 32px 24px;
     width: 100%;
+    height: 98px;
     background-color: var(--green_400);
     border-bottom: 3px solid var(--green_600);
 }
 
-header img {
+header > img {
     cursor: pointer;
     transition: transform .5s;
 }
 
-header img:hover {
+header > img:hover {
     transform: scale(1.1);
 }
 
@@ -66,4 +67,88 @@ header h1 {
     font-family: "Supermercado One", serif;
     font-size: 24px;
     color: var(--blue_600);
+}
+
+/* NAV */
+
+nav {
+    max-height: 430px;
+    position: absolute;
+    top: 98px;
+    background-color: var(--green_400);
+    padding: 24px 16px;
+    z-index: 16;
+    transition: all .3s ease-out;
+    overflow: hidden;
+}
+
+.mainNav {
+    left: 0;
+    border-bottom-right-radius: 20px;
+    border-right: 3px solid var(--green_600);
+    border-bottom: 3px solid var(--green_600);
+}
+
+.userNav {
+    right: 0;
+    border: 0;
+    border-bottom-left-radius: 20px;
+    border-left: 3px solid var(--green_600);
+    border-bottom: 3px solid var(--green_600);
+}
+
+.navHide {
+    padding: 0;
+    max-height: 0;
+    border: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+nav .line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--green_600);
+}
+
+nav a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-family: "Supermercado One", serif;
+}
+
+nav .home_a {
+    color: var(--yellow_600);
+}
+
+nav .user_a {
+    color: var(--blue_600);
+}
+
+nav .book_a {
+    color: var(--pink_500);
+}
+
+nav .author_a {
+    color: var(--pink_600);
+}
+
+nav .loan_a {
+    color: var(--orange_600);
+}
+
+nav .report_a {
+    color: var(--green_600);
+}
+
+nav .plus_a {
+    color: var(--black);
 }

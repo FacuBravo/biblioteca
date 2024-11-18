@@ -12,9 +12,90 @@
 
 <body>
     <header>
-        <img src="assets/images/icons/Burger.svg" alt="Burger Menu">
+        <img id="burger_btn" src="assets/images/icons/Burger.svg" alt="Burger Menu">
+        <nav id="nav" class="mainNav navHide">
+            <ul>
+                <li>
+                    <a class="home_a" href="home.html">
+                        <img src="assets/images/icons/Home.svg" alt="Home">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <div class="line"></div>
+                </li>
+
+                <li>
+                    <a class="user_a" href="home.html">
+                        <img src="assets/images/icons/User.svg" alt="User">
+                        Usuarios
+                    </a>
+                </li>
+
+                <li>
+                    <a class="book_a" href="home.html">
+                        <img src="assets/images/icons/Book.svg" alt="Book">
+                        Catálogo
+                    </a>
+                </li>
+
+                <li>
+                    <a class="author_a" href="home.html">
+                        <img src="assets/images/icons/Author.svg" alt="Author">
+                        Autores
+                    </a>
+                </li>
+
+                <li>
+                    <a class="loan_a" href="home.html">
+                        <img src="assets/images/icons/Loan.svg" alt="Loan">
+                        Préstamos
+                    </a>
+                </li>
+
+                <li>
+                    <div class="line"></div>
+                </li>
+
+                <li>
+                    <a class="report_a" href="home.html">
+                        <img src="assets/images/icons/Report.svg" alt="Report">
+                        Reportes
+                    </a>
+                </li>
+
+                <li>
+                    <div class="line"></div>
+                </li>
+
+                <li>
+                    <a class="plus_a" href="home.html">
+                        <img src="assets/images/icons/Plus.svg" alt="Plus">
+                        Más Info.
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
         <h1>Biblioteca - Alfonsina Storni</h1>
-        <img src="assets/images/icons/User.svg" alt="User Menu">
+
+        <img id="user_btn" src="assets/images/icons/User.svg" alt="User Menu">
+        <nav id="navUser" class="userNav navHide">
+            <ul>
+                <li>
+                    <a class="user_a" href="home.html">Editar Perfil</a>
+                </li>
+
+                <li>
+                    <div class="line"></div>
+                </li>
+
+                <li>
+                    <a class="user_a" href="home.html">Iniciar Sesión</a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -67,6 +148,8 @@
             </article>
         </section>
     </main>
+
+    <script src="assets/js/home.js"></script>
 </body>
 
 </html>
