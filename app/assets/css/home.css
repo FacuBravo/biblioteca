@@ -293,8 +293,8 @@ main {
 /* LOGIN */
 
 dialog {
-    margin: calc(50vh - 150px) auto;
-    height: 300px;
+    margin: calc(50vh - 160px) auto;
+    height: 320px;
 }
 
 dialog form {
@@ -308,5 +308,11 @@ dialog form {
 dialog .inputs {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
+}
+
+dialog .message {
+    margin: 16px auto;
+    font-family: "Assistant", sans-serif;
+    color: var(--blue_600);
 }
