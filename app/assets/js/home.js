@@ -19,10 +19,24 @@ function showUserMenu() {
     }
 }
 
-getUsers()
+getNPartners()
+getNBooks()
+getNLoans()
 
-function getUsers() {
-    window.electronAPI.getUsers((users) => {
-        console.log(users)
+function getNPartners() {
+    window.electronAPI.getUsersN((partners) => {
+        document.querySelector("#charged_users_n").innerHTML = partners
+    })
+}
+
+function getNBooks() {
+    window.electronAPI.getBooksN((books) => {
+        document.querySelector("#charged_books_n").innerHTML = books
+    })
+}
+
+function getNLoans() {
+    window.electronAPI.getLoansN((loans) => {
+        document.querySelector("#active_loans_n").innerHTML = loans
     })
 }

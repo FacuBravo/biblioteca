@@ -31,7 +31,43 @@ app.whenReady().then(() => {
     createWindow()
 })
 
-ipcMain.handle('get-users', async () => {
+ipcMain.handle('get-partners-n', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT COUNT(*) n FROM partner', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-books-n', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT COUNT(*) n FROM book', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-loans-n', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT COUNT(*) n FROM loan', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-user', async () => {
     return new Promise((resolve, reject) => {
         db.all('SELECT * FROM user', [], (err, rows) => {
             if (err) {
@@ -59,7 +95,6 @@ app.on('window-all-closed', () => {
 function createTables() {
     db.run(`CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY, 
-            email varchar(100), 
             username varchar(20), 
             password TEXT)`, (err) => {
         if (err) {
