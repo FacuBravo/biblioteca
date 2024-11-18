@@ -13,6 +13,7 @@
     "electron": "33.2.0"
   },
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "sqlite3": "5.1.7"
   }
 }

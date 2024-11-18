@@ -101,6 +101,7 @@ function createTables() {
             console.error('Error al crear la tabla:', err.message)
         } else {
             console.log('Tabla user creada')
+            addAuthorizedUser()
         }
     })
 
@@ -170,6 +171,24 @@ function createTables() {
             console.error('Error al crear la tabla:', err.message)
         } else {
             console.log('Tabla loan creada')
+        }
+    })
+}
+
+function addAuthorizedUser() {
+    db.all('SELECT COUNT(*) n FROM user', [], (err, rows) => {
+        if (err) {
+            console.error(err)
+        } else {
+            if (rows[0].n == 0) {
+                db.run(`INSERT INTO user (username, password) VALUES ("biblio56", "$2a$10$tjwsS.FB0pUXX/1vh6QQ6OajbAXhX7PWCS7h2A8iqMrFSQGstnGOy")`, (err) => {
+                    if (err) {
+                        console.error('Error al insertar usuario autorizado:', err.message)
+                    } else {
+                        console.log('Usuario autorizado agregado')
+                    }
+                })
+            }
         }
     })
 }
