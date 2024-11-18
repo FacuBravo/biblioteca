@@ -66,12 +66,12 @@ header {
     border-bottom: 3px solid var(--green_600);
 }
 
-header > img {
+header>img {
     cursor: pointer;
     transition: transform .5s;
 }
 
-header > img:hover {
+header>img:hover {
     transform: scale(1.1);
 }
 
@@ -124,23 +124,22 @@ nav ul {
 }
 
 nav .line {
+    display: block;
     width: 100%;
     height: 2px;
     background-color: var(--green_600);
 }
 
-nav a {
+nav a,
+nav button {
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 20px;
     font-family: "Supermercado One", serif;
-    transition: scale .3s;
-}
-
-nav a:hover {
-    scale: 1.07;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 nav .home_a {
@@ -169,4 +168,127 @@ nav .report_a {
 
 nav .plus_a {
     color: var(--black);
+}
+
+/* DIALOGS */
+
+dialog {
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px rgba(19, 19, 19, 0.25);
+    position: relative;
+    padding: 16px;
+    padding-top: 64px;
+}
+
+dialog>button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    rotate: 45deg;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+dialog>button:hover {
+    transform: scale(.9);
+}
+
+dialog::backdrop {
+    background-color: rgba(19, 19, 19, 0.25);
+}
+
+/* INPUTS */
+
+.primary_input {
+    width: 196px;
+    height: 32px;
+    position: relative;
+}
+
+.primary_input input {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-size: 16px;
+    width: 196px;
+    height: 32px;
+    padding-left: 8px;
+    color: white;
+    font-family: "Assistant", sans-serif;
+    transition: all .5s;
+}
+
+.primary_input span {
+    position: absolute;
+    top: 0;
+    left: 6px;
+    font-size: 16px;
+    color: var(--grey);
+    font-family: "Assistant", sans-serif;
+    transition: all .5s;
+}
+
+.input_background {
+    background-color: var(--blue_500);
+    max-height: 2px;
+    width: 196px;
+    height: 32px;
+    position: absolute;
+    bottom: 0;
+    border-radius: 4px;
+    transition: all .5s;
+}
+
+.primary_input input:focus ~ span,
+.primary_input input:valid ~ span {
+    transform: translateY(-100%);
+    left: 0;
+    font-size: 14px;
+    color: var(--blue_500);
+}
+
+.primary_input input:focus ~ .input_background,
+.primary_input input:valid ~ .input_background {
+    max-height: 30px;
+}
+
+/* BUTTONS */
+
+.primary_btn {
+    font-family: "Supermercado One";
+    height: 40px;
+    font-size: 20px;
+    background-color: var(--blue_500);
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s;
+    z-index: 1;
+}
+
+.primary_btn::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    max-width: 0;
+    border-radius: 9px;
+    background-color: white;
+    transition: all .3s;
+    z-index: -1;
+}
+
+.primary_btn:hover::before {
+    max-width: 100%;
+}
+
+.primary_btn:hover {
+    color: var(--blue_500);
 }

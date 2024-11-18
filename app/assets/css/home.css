@@ -289,3 +289,24 @@ main {
 .active_loans_bento h4 {
     z-index: 1;
 }
+
+/* LOGIN */
+
+dialog {
+    margin: calc(50vh - 150px) auto;
+    height: 300px;
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    margin-top: 16px;
+    padding: 0 24px;
+}
+
+dialog .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
