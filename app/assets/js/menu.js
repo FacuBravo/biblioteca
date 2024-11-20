@@ -74,7 +74,7 @@ function login(e) {
 function logout() {
     userLogged = false
     setLogged()
-    localStorage.setItem("logged", false)
+    localStorage.clear()
 }
 
 // SHOW AND HIDE MENUS

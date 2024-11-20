@@ -74,7 +74,7 @@ body {
     flex-direction: column;
     gap: 24px;
     font-family: "Assistant", system-ui;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .books_table thead {
@@ -100,7 +100,7 @@ body {
     width: 30%;
 }
 
-.books_table td:nth-child(4) {
+.books_table td:nth-child(5) {
     width: 10%;
 }
 
@@ -124,4 +124,40 @@ body {
 
 .books_table .hidden_search_item {
     display: none;
+}
+
+#btn_add_book {
+    background-color: transparent;
+    cursor: pointer;
+    height: 32px;
+    transition: transform .5s;
+}
+
+#btn_add_book:hover {
+    transform: scale(.9);
+}
+
+#add_book_dialog {
+    margin: calc(50vh - 300px) auto;
+    height: 600px;
+}
+
+#add_book_dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    margin-top: 16px;
+    padding: 0 24px;
+}
+
+#add_book_dialog .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#add_book_dialog .message {
+    margin: 16px auto;
+    font-family: "Assistant", sans-serif;
+    color: var(--blue_600);
 }

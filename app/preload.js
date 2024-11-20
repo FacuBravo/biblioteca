@@ -28,5 +28,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
         } else {
             callback(false)
         }
+    },
+    addBook: async (callback, bookInfo) => {
+        let book = await ipcRenderer.invoke('add-book', bookInfo)
+        callback(book)
+    },
+    getBooks: async (callback) => {
+        let books = await ipcRenderer.invoke('get-books')
+        callback(books)
     }
 })

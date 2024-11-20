@@ -82,6 +82,39 @@ ipcMain.handle('get-user', async () => {
     })
 })
 
+ipcMain.handle('add-book', async (event, bookInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('INSERT INTO book (title, edition, place, editorial, date, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [bookInfo.title, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.date, bookInfo.theme, bookInfo.colection], function (err) {
+
+            if (err) {
+                reject(err)
+            } else {
+                const insertedId = this.lastID
+                db.get('SELECT * FROM book WHERE id = ?', [insertedId], (err, row) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(row)
+                    }
+                })
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-books', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM book', [] , (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         db.close((err) => {

@@ -287,6 +287,19 @@ dialog::backdrop {
     max-height: 30px;
 }
 
+.secondary_input {
+    background-color: var(--green_400);
+    padding: 8px;
+    border-radius: 8px;
+    color: var(--black);
+    font-size: 16px;
+    font-family: "Assistant", system-ui;
+}
+
+.secondary_input::placeholder {
+    color: var(--grey);
+}
+
 /* BUTTONS */
 
 .primary_btn {
