@@ -1,0 +1,61 @@
+main {
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* BACKGROUND */
+
+@keyframes transformUnset {
+    100% {
+        transform: unset;
+    }
+}
+
+.circle:first-child {
+    width: 335px;
+    height: 335px;
+    left: -217px;
+    bottom: 63px;
+    transform: translateX(-100%);
+    animation-delay: .2s;
+}
+
+.circle:nth-child(2) {
+    width: 259px;
+    height: 259px;
+    left: -71px;
+    bottom: -106px;
+    z-index: -49;
+    transform: translateX(-100%);
+}
+
+.circle:nth-child(3) {
+    width: 357px;
+    height: 357px;
+    right: -161px;
+    top: 143px;
+    transform: translateX(100%);
+}
+
+.circle:nth-child(4) {
+    width: 164px;
+    height: 164px;
+    right: -86px;
+    top: 30px;
+    z-index: -49;
+    transform: translateX(100%);
+    animation-delay: .2s;
+}
+
+.section_title_container {
+    width: fit-content;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: var(--pink_600);
+    font-family: "Supermercado One", sans-serif;
+    font-size: 24px;
+}

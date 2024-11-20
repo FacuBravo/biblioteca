@@ -6,13 +6,6 @@ main {
 
 /* BACKGROUND */
 
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    z-index: -50;
-    animation: transformUnset .7s both;
-}
-
 @keyframes transformUnset {
     100% {
         transform: unset;
@@ -53,26 +46,6 @@ main {
     z-index: -49;
     transform: translateX(100%);
     animation-delay: .2s;
-}
-
-.circle_blue {
-    background-color: var(--blue_400);
-    border: 3px solid var(--blue_600);
-}
-
-.circle_orange {
-    background-color: var(--orange_400);
-    border: 3px solid var(--orange_600);
-}
-
-.circle_pink {
-    background-color: var(--pink_400);
-    border: 3px solid var(--pink_600);
-}
-
-.circle_yellow {
-    background-color: var(--yellow_400);
-    border: 3px solid var(--yellow_600);
 }
 
 /* BENTO */

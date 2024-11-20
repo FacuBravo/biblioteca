@@ -16,9 +16,8 @@ const createWindow = () => {
 
     mainWindow.loadFile('app/home.html')
     mainWindow.on('close', () => {
-        // Aquí vacías el localStorage desde el proceso principal
-        mainWindow.webContents.executeJavaScript('localStorage.clear()');
-    });
+        mainWindow.webContents.executeJavaScript('localStorage.clear()')
+    })
     // Menu.setApplicationMenu(null)
 }
 
