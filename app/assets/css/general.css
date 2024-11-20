@@ -58,35 +58,6 @@ body {
     display: none;
 }
 
-/* BACKGROUND */
-
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    z-index: -50;
-    animation: transformUnset .7s both;
-}
-
-.circle_blue {
-    background-color: var(--blue_400);
-    border: 3px solid var(--blue_600);
-}
-
-.circle_orange {
-    background-color: var(--orange_400);
-    border: 3px solid var(--orange_600);
-}
-
-.circle_pink {
-    background-color: var(--pink_400);
-    border: 3px solid var(--pink_600);
-}
-
-.circle_yellow {
-    background-color: var(--yellow_400);
-    border: 3px solid var(--yellow_600);
-}
-
 /* HEADER */
 
 header {
@@ -230,6 +201,33 @@ dialog .dialog_content {
 
 dialog::backdrop {
     background-color: rgba(19, 19, 19, 0.25);
+}
+
+/* LOGIN */
+
+#login_dialog {
+    margin: calc(50vh - 160px) auto;
+    height: 320px;
+}
+
+#login_dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    margin-top: 16px;
+    padding: 0 24px;
+}
+
+#login_dialog .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+#login_dialog .message {
+    margin: 16px auto;
+    font-family: "Assistant", sans-serif;
+    color: var(--blue_600);
 }
 
 /* INPUTS */

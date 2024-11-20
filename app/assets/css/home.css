@@ -1,51 +1,20 @@
 main {
     display: flex;
     justify-content: center;
-    padding-top: 46px;
+    padding: 46px 0;
 }
 
-/* BACKGROUND */
+body {
+    background-image: url(../images/background_home.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 
 @keyframes transformUnset {
     100% {
         transform: unset;
     }
-}
-
-.circle:first-child {
-    width: 335px;
-    height: 335px;
-    left: -127px;
-    top: 10px;
-    transform: translateX(-100%);
-    animation-delay: .2s;
-}
-
-.circle:nth-child(2) {
-    width: 259px;
-    height: 259px;
-    left: -127px;
-    top: 296px;
-    z-index: -49;
-    transform: translateX(-100%);
-}
-
-.circle:nth-child(3) {
-    width: 357px;
-    height: 357px;
-    right: -86px;
-    bottom: -163px;
-    transform: translateX(100%);
-}
-
-.circle:nth-child(4) {
-    width: 164px;
-    height: 164px;
-    right: -86px;
-    bottom: 123px;
-    z-index: -49;
-    transform: translateX(100%);
-    animation-delay: .2s;
 }
 
 /* BENTO */
@@ -67,6 +36,7 @@ main {
     border-radius: 24px;
     cursor: pointer;
     box-shadow: 4px 4px 8px rgba(19, 19, 19, 0.25);
+    text-decoration: none;
 }
 
 /* AUTHORS BENTO */
@@ -261,31 +231,4 @@ main {
 
 .active_loans_bento h4 {
     z-index: 1;
-}
-
-/* LOGIN */
-
-dialog {
-    margin: calc(50vh - 160px) auto;
-    height: 320px;
-}
-
-dialog form {
-    display: flex;
-    flex-direction: column;
-    gap: 52px;
-    margin-top: 16px;
-    padding: 0 24px;
-}
-
-dialog .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-}
-
-dialog .message {
-    margin: 16px auto;
-    font-family: "Assistant", sans-serif;
-    color: var(--blue_600);
 }

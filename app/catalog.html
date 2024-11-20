@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/general.css">
     <link rel="stylesheet" href="assets/css/catalog.css">
 </head>
+
 <body>
     <header>
         <img id="burger_btn" src="assets/images/icons/Burger.svg" alt="Burger Menu">
@@ -98,17 +100,42 @@
     </header>
 
     <main>
-        <div class="circle circle_blue"></div>
-        <div class="circle circle_orange"></div>
-        <div class="circle circle_pink"></div>
-        <div class="circle circle_yellow"></div>
-
-        <article>
+        <section class="top_info">
             <div class="section_title_container">
                 <h1>Catálogo</h1>
-                <img src="assets/images/icons/Plus.svg" alt="Add Book">
+                <img src="assets/images/icons/Plus_pink.svg" alt="Add Book">
             </div>
-        </article>
+            <div class="searcher">
+                <input type="text" id="searcher_input" placeholder="Buscar...">
+                <img src="assets/images/icons/Lens.svg" alt="Lens">
+            </div>
+        </section>
+
+        <table class="books_table">
+            <thead>
+                <tr>
+                    <td>Titulo</td>
+                    <td>Autor</td>
+                    <td>Tema</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody id="table_body">
+                <tr class="search_item">
+                    <td>A Berta se le perdió su gato</td>
+                    <td>Ema Wolf</td>
+                    <td>Infantil</td>
+                    <td class="actions">
+                        <button>
+                            <img src="assets/images/icons/Info.svg" alt="See more">
+                        </button>
+                        <button>
+                            <img src="assets/images/icons/Trash.svg" alt="Delete">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 
     <dialog id="login_dialog">
@@ -121,7 +148,7 @@
                         fill="#60A4D3" />
                 </svg>
             </button>
-    
+
             <form id="login_form">
                 <div class="inputs">
                     <div class="primary_input">
@@ -135,14 +162,16 @@
                         <div class="input_background"></div>
                     </div>
                 </div>
-                
+
                 <button class="primary_btn">Iniciar Sesión</button>
             </form>
-    
+
             <p class="message" id="form_login_message"></p>
         </section>
     </dialog>
 
-    <script defer src="assets/js/menu.js"></script>
+    <!-- <script defer src="assets/js/menu.js"></script> -->
+    <script defer src="assets/js/catalog.js"></script>
 </body>
+
 </html>
