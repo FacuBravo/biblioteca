@@ -3,13 +3,26 @@ searcherInput.addEventListener('keyup', filter)
 let books = []
 let sortedBy = 'id_asc'
 
-checkLogged()
+getSession()
+
+function getSession() {
+    window.session.getSession().then((data) => {
+        if (data != {}) {
+            token = data.token
+        } else {
+            token = null
+        }
+
+        setLogged()
+        checkLogged()
+    })
+}
 
 function checkLogged() {
-    if (userLogged == false) {
-        window.location.href = "home.html"
-    } else {
+    if (token != null) {
         getBooks()
+    } else {
+        window.location.href = 'home.html'
     }
 }
 

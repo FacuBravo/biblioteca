@@ -15,9 +15,6 @@ const createWindow = () => {
     })
 
     mainWindow.loadFile('app/home.html')
-    mainWindow.on('close', () => {
-        mainWindow.webContents.executeJavaScript('localStorage.clear()')
-    })
     // Menu.setApplicationMenu(null)
 }
 
@@ -113,6 +110,22 @@ ipcMain.handle('get-books', async () => {
             }
         })
     })
+})
+
+const sessionData = {}
+
+ipcMain.on('set-session', (event, data) => {
+    Object.assign(sessionData, data)
+    console.log('Sesion actualizada:', sessionData)
+})
+
+ipcMain.handle('get-session', () => {
+    return sessionData
+})
+
+ipcMain.on('clear-session', () => {
+    Object.keys(sessionData).forEach(key => delete sessionData[key])
+    console.log('Sesion eliminada')
 })
 
 app.on('window-all-closed', () => {

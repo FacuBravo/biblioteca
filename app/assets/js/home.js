@@ -21,3 +21,17 @@ function getNLoans() {
         document.querySelector("#active_loans_n").innerHTML = loans
     })
 }
+
+getSession()
+
+function getSession() {
+    window.session.getSession().then((data) => {
+        if (data != {}) {
+            token = data.token
+        } else {
+            token = null
+        }
+
+        setLogged()
+    })
+}

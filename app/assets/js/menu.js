@@ -1,11 +1,9 @@
-let userLogged = localStorage.getItem("logged") ?? false
+let token = null
 const logoutBtn = document.querySelector("#logout_btn")
 const loginBtn = document.querySelector("#login_btn")
 
-setLogged()
-
 function setLogged() {
-    if (userLogged) {
+    if (token != null) {
         if (logoutBtn.classList.contains("hidden")) {
             logoutBtn.classList.remove("hidden")
         }
@@ -49,6 +47,7 @@ function closeLoginDialog() {
 
 function login(e) {
     e.preventDefault()
+    
     const data = Object.fromEntries(
         new FormData(formLogin)
     )
@@ -56,25 +55,23 @@ function login(e) {
     const username = data.username
     const pass = data.pass
 
-    window.electronAPI.login((logged) => {
-        if (logged) {
-            userLogged = true
+    window.session.setSession((response) => {
+        if (response != null) {
+            token = response
             setLogged()
-            localStorage.setItem("logged", true)
             closeLoginDialog()
         } else {
             document.querySelector("#form_login_message").innerHTML = "Usuario y/o contraseña incorrectos"
         }
 
-    }, username, pass)
+    }, { username, pass })
 }
 
 // LOGOUT
 
 function logout() {
-    userLogged = false
-    setLogged()
-    localStorage.clear()
+    window.session.clearSession()
+    getSession()
 }
 
 // SHOW AND HIDE MENUS
