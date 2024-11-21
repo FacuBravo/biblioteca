@@ -1,19 +1,37 @@
 {
   "name": "biblioteca",
   "version": "1.0.0",
-  "description": "",
+  "description": "Manejo de biblioteca",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build:win": "electron-builder --win"
   },
-  "author": "Facundo Bravo",
+  "author": "Facundo Bravo <bfacundo176@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "electron": "33.2.0"
+    "electron": "33.2.0",
+    "electron-builder": "25.1.8"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
     "sqlite3": "5.1.7"
+  },
+  "build": {
+    "appId": "com.biblioteca.app",
+    "productName": "Biblioteca",
+    "win": {
+      "target": "nsis",
+      "icon": "app/assets/images/icons/icon.ico"
+    },
+    "files": [
+      "main.js",
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    }
   }
 }
