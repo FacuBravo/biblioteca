@@ -121,7 +121,7 @@ function addBook(e) {
         books.push(book)
         showBooks()
         closeAddBookDialog()
-    }, bookInfo)
+    }, bookInfo, token)
 }
 
 document.querySelectorAll(".sortable").forEach(e => {

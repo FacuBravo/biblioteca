@@ -14,9 +14,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
         let loans = await ipcRenderer.invoke('get-loans-n')
         callback(loans[0].n)
     },
-    addBook: async (callback, bookInfo) => {
-        let book = await ipcRenderer.invoke('add-book', bookInfo)
-        callback(book)
+    addBook: async (callback, bookInfo, token) => {
+        console.log(token)
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let book = await ipcRenderer.invoke('add-book', bookInfo)
+            callback(book)
+        } else {
+            callback(null)
+        }
     },
     getBooks: async (callback) => {
         let books = await ipcRenderer.invoke('get-books')

@@ -123,6 +123,13 @@ ipcMain.handle('get-session', () => {
     return sessionData
 })
 
+ipcMain.handle('check-session', (event, token) => {
+    if (!sessionData.token) {
+        return false
+    }
+    return token == sessionData.token
+})
+
 ipcMain.on('clear-session', () => {
     Object.keys(sessionData).forEach(key => delete sessionData[key])
     console.log('Sesion eliminada')
