@@ -180,6 +180,7 @@ dialog {
     border-radius: 20px;
     box-shadow: 4px 4px 8px rgba(19, 19, 19, 0.25);
     padding: 16px;
+    margin: auto auto;
 }
 
 dialog .dialog_content {
@@ -204,11 +205,6 @@ dialog::backdrop {
 }
 
 /* LOGIN */
-
-#login_dialog {
-    margin: calc(50vh - 160px) auto;
-    height: 320px;
-}
 
 #login_dialog form {
     display: flex;

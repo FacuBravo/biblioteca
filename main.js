@@ -98,8 +98,8 @@ ipcMain.handle('get-next-book-id', async () => {
 
 ipcMain.handle('add-book', async (event, bookInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO book (id, title, author, edition, place, editorial, date, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.date, bookInfo.theme, bookInfo.colection], function (err) {
+        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.colection], function (err) {
 
                 if (err) {
                     reject(err)
@@ -220,7 +220,7 @@ function createTables() {
             edition varchar(100) NULL, 
             place varchar(100) NULL, 
             editorial varchar(100) NULL, 
-            date DATE NULL,
+            year INTEGER NULL,
             theme varchar(100),
             colection varchar(80) NULL)`, (err) => {
         if (err) {

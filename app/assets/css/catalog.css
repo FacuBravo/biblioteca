@@ -142,11 +142,6 @@ body {
     transform: scale(.9);
 }
 
-#add_book_dialog {
-    margin: calc(50vh - 300px) auto;
-    height: 600px;
-}
-
 #add_book_dialog form {
     display: flex;
     flex-direction: column;
@@ -173,11 +168,6 @@ body {
     align-items: center;
 }
 
-#delete_book_dialog {
-    margin: calc(50vh - 100px) auto;
-    height: 200px;
-}
-
 #delete_book_dialog p {
     text-align: center;
     width: 100%;
@@ -199,7 +189,40 @@ body {
     width: 150px;
 }
 
+.book_info {
+    min-width: 250px;
+    width: 30vw;
+    margin: 0 16px 16px 20px;
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: "Assistant", system-ui;
+    color: var(--black);
+}
+
 #book_info_dialog {
-    margin: calc(50vh - 250px) auto;
-    height: 500px;
+    overflow: hidden;
+}
+
+#book_info_dialog .circle_1 {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--blue_500);
+    bottom: -50px;
+    right: -20px;
+    z-index: -1;
+}
+
+#book_info_dialog .circle_2 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--pink_400);
+    bottom: -40px;
+    right: 60px;
+    z-index: -1;
 }

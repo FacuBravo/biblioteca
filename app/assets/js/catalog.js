@@ -105,7 +105,7 @@ function addBook(e) {
     const edition = data.edition
     const place = data.place
     const editorial = data.editorial
-    const date = data.date
+    const year = data.year
     const theme = data.theme
     const colection = data.colection
 
@@ -115,7 +115,7 @@ function addBook(e) {
         edition,
         place,
         editorial,
-        date,
+        year,
         theme,
         colection
     }
@@ -309,16 +309,13 @@ function showDialogInfo(e) {
         document.querySelector("#close_info_book_dialog_btn").addEventListener("click", closeInfoDialog)
 
         dialogInfo.querySelector("#book_info_content").innerHTML = ''
+
         dialogInfo.querySelector("#book_info_content").innerHTML += `
-            <p>Número de inventario: ${book.id}</p>
-            <p>Título: ${book.title}</p>
-            <p>Autor: ${book.author}</p>
-            <p>Tema: ${book.theme}</p>
-            <p>Colección: ${book.colection}</p>
-            <p>Editorial: ${book.editorial}</p>
-            <p>Edición: ${book.edition}</p>
-            <p>Fecha: ${book.date}</p>
-            <p>Lugar: ${book.place}</p>
+            <p>${book.author}, "${book.title}"</p>
+            <p>${book.edition} ${book.place} : ${book.editorial},</p>
+            <p>${book.year}</p>
+            <p>${book.theme}</p>
+            <p>${book.colection}</p>
         `
     }
 }
