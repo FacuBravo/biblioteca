@@ -112,6 +112,30 @@ ipcMain.handle('get-books', async () => {
     })
 })
 
+ipcMain.handle('get-book', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.get('SELECT * FROM book b WHERE id = ?', [id] , (err, row) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(row)
+            }
+        })
+    })
+})
+
+ipcMain.handle('delete-book', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.all('DELETE FROM book WHERE id = ?', [id] , (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
 const sessionData = {}
 
 ipcMain.on('set-session', (event, data) => {

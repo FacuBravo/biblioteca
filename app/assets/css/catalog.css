@@ -172,3 +172,29 @@ body {
     display: flex;
     align-items: center;
 }
+
+#delete_book_dialog {
+    margin: calc(50vh - 100px) auto;
+    height: 200px;
+}
+
+#delete_book_dialog p {
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    font-family: "Supermercado One", sans-serif;
+    color: var(--blue_500);
+    margin-top: 16px;
+}
+
+#delete_book_dialog .options {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+#delete_book_dialog .options .primary_btn {
+    width: 150px;
+}

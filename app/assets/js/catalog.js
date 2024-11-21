@@ -53,16 +53,18 @@ function showBooks() {
                 <td>${book.author}</td>
                 <td>${book.theme}</td>
                 <td class="actions">
-                    <button id="btn_book_info_${book.id}">
-                        <img src="assets/images/icons/Info.svg" alt="See more">
+                    <button class="btn_book_info">
+                        <img id="btn_book_info_${book.id}" src="assets/images/icons/Info.svg" alt="See more">
                     </button>
-                    <button class="${token == null ? 'hidden' : ''}" id="btn_delete_book_${book.id}">
-                        <img src="assets/images/icons/Trash.svg" alt="Delete">
+                    <button class="btn_delete_book ${token == null ? 'hidden' : ''}">
+                        <img id="btn_delete_book_${book.id}" src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
                 </td>
             </tr>
         `
     }
+
+    document.querySelectorAll('.btn_delete_book').forEach(e => e.addEventListener('click', showDialogDelete))
 }
 
 function filter() {
@@ -263,4 +265,33 @@ function sort(e) {
 
     showBooks()
     filter()
+}
+
+let idToDelete = -1
+
+function showDialogDelete(e) {
+    idToDelete = e.target.id.split('_')[3]
+    document.querySelector("#delete_book_dialog").showModal()
+    document.querySelector("#close_delete_book_dialog_btn").addEventListener("click", closeDeleteDialog)
+    document.querySelector("#close_delete_book_dialog_btn").addEventListener("click", closeDeleteDialog)
+    document.querySelector("#sure_delete_book").addEventListener("click", deleteBook)
+}
+
+function closeDeleteDialog() {
+    idToDelete = -1
+    document.querySelector("#delete_book_dialog").close()
+}
+
+function deleteBook() {
+    window.electronAPI.deleteBook((book) => {
+        if (book) {
+            const index = books.findIndex(o => o.id === book.id)
+
+            if (index > -1) {
+                closeDeleteDialog()
+                books.splice(index, 1)
+                showBooks()
+            }
+        }
+    }, idToDelete, token)
 }
