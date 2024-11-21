@@ -116,15 +116,26 @@
         <table class="books_table">
             <thead>
                 <tr>
-                    <td># Inventario</td>
-                    <td>Título</td>
-                    <td>Autor</td>
-                    <td>Tema</td>
+                    <td class="sortable" id="order_by_n">
+                        # Inventario
+                        <img class="sort_img" id="arrow_order_by_n" src="assets/images/icons/Arrow.svg" alt="Arrow">
+                    </td>
+                    <td class="sortable" id="order_by_title">
+                        Título
+                        <img class="sort_img hidden" id="arrow_order_by_title" src="assets/images/icons/Arrow.svg" alt="Arrow">
+                    </td>
+                    <td class="sortable" id="order_by_author">
+                        Autor
+                        <img class="sort_img hidden" id="arrow_order_by_author" src="assets/images/icons/Arrow.svg" alt="Arrow">
+                    </td>
+                    <td class="sortable" id="order_by_theme">
+                        Tema
+                        <img class="sort_img hidden" id="arrow_order_by_theme" src="assets/images/icons/Arrow.svg" alt="Arrow">
+                    </td>
                     <td>Acciones</td>
                 </tr>
             </thead>
-            <tbody id="table_body">
-            </tbody>
+            <tbody id="table_body"></tbody>
         </table>
     </main>
 
@@ -174,6 +185,7 @@
             <form id="add_book_form">
                 <div class="inputs">
                     <input class="secondary_input" name="title" type="text" required placeholder="Título">
+                    <input class="secondary_input" name="author" type="text" required placeholder="Autor">
                     <input class="secondary_input" name="edition" type="text" placeholder="Edición">
                     <input class="secondary_input" name="place" type="text" placeholder="Lugar">
                     <input class="secondary_input" name="editorial" type="text" placeholder="Editorial">

@@ -161,3 +161,9 @@ body {
     font-family: "Assistant", sans-serif;
     color: var(--blue_600);
 }
+
+.sortable {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
