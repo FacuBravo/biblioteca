@@ -17,6 +17,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     addBook: async (callback, bookInfo, token) => {
         let result = await ipcRenderer.invoke('check-session', token)
         if (result) {
+            let id = await ipcRenderer.invoke('get-next-book-id')
+            bookInfo.id = id
             let book = await ipcRenderer.invoke('add-book', bookInfo)
             callback(book)
         } else {

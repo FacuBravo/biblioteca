@@ -79,30 +79,45 @@ ipcMain.handle('get-user', async () => {
     })
 })
 
-ipcMain.handle('add-book', async (event, bookInfo) => {
+ipcMain.handle('get-next-book-id', async () => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO book (title, author, edition, place, editorial, date, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.date, bookInfo.theme, bookInfo.colection], function (err) {
-
+        db.get(`SELECT id + 1 AS newId 
+        FROM book 
+        WHERE (id + 1) NOT IN (SELECT id FROM book) 
+        ORDER BY id 
+        LIMIT 1`, [], (err, row) => {
             if (err) {
                 reject(err)
             } else {
-                const insertedId = this.lastID
-                db.get('SELECT * FROM book WHERE id = ?', [insertedId], (err, row) => {
-                    if (err) {
-                        reject(err)
-                    } else {
-                        resolve(row)
-                    }
-                })
+                resolve(row ? row.newId : 1)
             }
         })
     })
 })
 
+ipcMain.handle('add-book', async (event, bookInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('INSERT INTO book (id, title, author, edition, place, editorial, date, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.date, bookInfo.theme, bookInfo.colection], function (err) {
+
+                if (err) {
+                    reject(err)
+                } else {
+                    db.get('SELECT * FROM book WHERE id = ?', [bookInfo.id], (err, row) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve(row)
+                        }
+                    })
+                }
+            })
+    })
+})
+
 ipcMain.handle('get-books', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM book b ORDER BY b.id', [] , (err, rows) => {
+        db.all('SELECT * FROM book b ORDER BY b.id', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -114,7 +129,7 @@ ipcMain.handle('get-books', async () => {
 
 ipcMain.handle('get-book', async (event, id) => {
     return new Promise((resolve, reject) => {
-        db.get('SELECT * FROM book b WHERE id = ?', [id] , (err, row) => {
+        db.get('SELECT * FROM book b WHERE id = ?', [id], (err, row) => {
             if (err) {
                 reject(err)
             } else {
@@ -126,7 +141,7 @@ ipcMain.handle('get-book', async (event, id) => {
 
 ipcMain.handle('delete-book', async (event, id) => {
     return new Promise((resolve, reject) => {
-        db.all('DELETE FROM book WHERE id = ?', [id] , (err, rows) => {
+        db.all('DELETE FROM book WHERE id = ?', [id], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
