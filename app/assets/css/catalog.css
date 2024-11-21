@@ -97,11 +97,16 @@ body {
 }
 
 .books_table td {
-    width: 30%;
+    width: 28%;
+}
+
+.books_table td:nth-child(1) {
+    width: 6%;
 }
 
 .books_table td:nth-child(5) {
     width: 10%;
+    justify-content: center;
 }
 
 .books_table tbody tr:nth-child(odd) {

@@ -1,5 +1,11 @@
 const searcherInput = document.querySelector('#searcher_input')
 searcherInput.addEventListener('keyup', filter)
+
+const addBookBtn = document.querySelector('#btn_add_book')
+addBookBtn.addEventListener('click', showAddBookDialog)
+
+const dialogAddBook = document.querySelector("#add_book_dialog")
+
 let books = []
 let sortedBy = 'id_asc'
 
@@ -19,11 +25,13 @@ function getSession() {
 }
 
 function checkLogged() {
-    if (token != null) {
-        getBooks()
+    if (token == null) {
+        addBookBtn.classList.add("hidden")
     } else {
-        window.location.href = 'home.html'
+        addBookBtn.classList.remove("hidden")
     }
+
+    getBooks()
 }
 
 function getBooks() {
@@ -48,7 +56,7 @@ function showBooks() {
                     <button id="btn_book_info_${book.id}">
                         <img src="assets/images/icons/Info.svg" alt="See more">
                     </button>
-                    <button id="btn_delete_book_${book.id}">
+                    <button class="${token == null ? 'hidden' : ''}" id="btn_delete_book_${book.id}">
                         <img src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
                 </td>
@@ -69,8 +77,6 @@ function filter() {
     })
 }
 
-document.querySelector('#btn_add_book').addEventListener('click', showAddBookDialog)
-const dialogAddBook = document.querySelector("#add_book_dialog")
 let formAddBook
 
 function showAddBookDialog() {

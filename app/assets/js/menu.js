@@ -58,7 +58,7 @@ function login(e) {
     window.session.setSession((response) => {
         if (response != null) {
             token = response
-            setLogged()
+            getSession()
             closeLoginDialog()
         } else {
             document.querySelector("#form_login_message").innerHTML = "Usuario y/o contraseña incorrectos"
