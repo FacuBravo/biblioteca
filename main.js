@@ -98,8 +98,8 @@ ipcMain.handle('get-next-book-id', async () => {
 
 ipcMain.handle('add-book', async (event, bookInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, colection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.colection], function (err) {
+        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection], function (err) {
 
                 if (err) {
                     reject(err)
@@ -111,6 +111,19 @@ ipcMain.handle('add-book', async (event, bookInfo) => {
                             resolve(row)
                         }
                     })
+                }
+            })
+    })
+})
+
+ipcMain.handle('update-book', async (event, bookInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE book SET title = ?, author = ?, edition = ?, place = ?, editorial = ?, year = ?, theme = ?, collection = ? WHERE id = ?',
+            [bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection, bookInfo.id], function (err) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(true)
                 }
             })
     })
@@ -222,7 +235,7 @@ function createTables() {
             editorial varchar(100) NULL, 
             year INTEGER NULL,
             theme varchar(100),
-            colection varchar(80) NULL)`, (err) => {
+            collection varchar(80) NULL)`, (err) => {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {

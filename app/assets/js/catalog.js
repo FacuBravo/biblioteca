@@ -107,7 +107,7 @@ function addBook(e) {
     const editorial = data.editorial
     const year = data.year
     const theme = data.theme
-    const colection = data.colection
+    const collection = data.collection
 
     const bookInfo = {
         title,
@@ -117,7 +117,7 @@ function addBook(e) {
         editorial,
         year,
         theme,
-        colection
+        collection
     }
 
     window.electronAPI.addBook((book) => {
@@ -302,7 +302,7 @@ const dialogInfo = document.querySelector("#book_info_dialog")
 function showDialogInfo(e) {
     const id = e.target.id.split('_')[3]
     const index = books.findIndex(o => o.id == id)
-    
+
     if (index > -1) {
         const book = books[index]
         dialogInfo.showModal()
@@ -311,15 +311,95 @@ function showDialogInfo(e) {
         dialogInfo.querySelector("#book_info_content").innerHTML = ''
 
         dialogInfo.querySelector("#book_info_content").innerHTML += `
-            <p>${book.author}, "${book.title}"</p>
+            <p>${book.author}. "${book.title}"</p>
             <p>${book.edition} ${book.place} : ${book.editorial},</p>
             <p>${book.year}</p>
             <p>${book.theme}</p>
-            <p>${book.colection}</p>
+            <p>${book.collection}</p>
         `
+
+        if (token == null) {
+            document.querySelector("#edit_book_btn").classList.add("hidden")
+        } else {
+            document.querySelector("#edit_book_btn").classList.remove("hidden")
+            document.querySelector("#edit_book_btn").addEventListener("click", () => editBook(index))
+        }
     }
 }
 
 function closeInfoDialog() {
+    document.querySelector("#edit_book_btn").classList.remove("hidden")
     dialogInfo.close()
+}
+
+let formEditBook
+
+function editBook(index) {
+    const book = books[index]
+    dialogInfo.querySelector("#book_info_content").innerHTML = ''
+
+    dialogInfo.querySelector("#book_info_content").innerHTML += `
+        <form id="edit_book_form">
+            <button class="send_form_edit_book">
+                <img src="assets/images/icons/Tick.svg" alt="Tick">
+            </button>
+
+            <div>
+                <input name="author" class="secondary_input" type="text" value="${book.author}" placeholder="Autor" required>, 
+                <input name="title" class="secondary_input" type="text" value="${book.title}" placeholder="Título" required>
+            </div>
+
+            <div>
+                <input name="edition" class="secondary_input" type="text" value="${book.edition}" placeholder="Edición"> 
+                <input name="place" class="secondary_input" type="text" value="${book.place}" placeholder="Lugar"> : 
+                <input name="editorial" class="secondary_input" type="text" value="${book.editorial}" placeholder="Editorial">,
+            </div>
+
+            <input name="year" class="secondary_input" value="${book.year}" placeholder="Año">
+            <input name="theme" class="secondary_input" type="text" value="${book.theme}" placeholder="Tema" required>
+            <input name="collection" class="secondary_input" type="text" value="${book.collection}" placeholder="Colección">
+            
+        </form>
+    `
+    document.querySelector("#edit_book_btn").classList.add("hidden")
+    formEditBook = document.querySelector("#edit_book_form")
+    formEditBook.addEventListener("submit", (e) => updateBook(e, index))
+}
+
+function updateBook(e, index) {
+    e.preventDefault()
+    const id = books[index].id
+
+    const data = Object.fromEntries(
+        new FormData(formEditBook)
+    )
+    const title = data.title
+    const author = data.author
+    const edition = data.edition
+    const place = data.place
+    const editorial = data.editorial
+    const year = data.year
+    const theme = data.theme
+    const collection = data.collection
+
+    const bookInfo = {
+        id,
+        title,
+        author,
+        edition,
+        place,
+        editorial,
+        year,
+        theme,
+        collection
+    }
+
+    closeInfoDialog()
+
+    window.electronAPI.updateBook((res) => {
+        if (res != null) {
+            books[index] = bookInfo
+            showBooks()
+        }
+    }, bookInfo, token)
 }

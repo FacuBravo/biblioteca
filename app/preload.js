@@ -25,6 +25,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
             callback(null)
         }
     },
+    updateBook: async (callback, bookInfo, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let res = await ipcRenderer.invoke('update-book', bookInfo)
+            if (res) {
+                callback(true)
+            } else {
+                callback(null)
+            }
+        } else {
+            callback(null)
+        }
+    },
     getBooks: async (callback) => {
         let books = await ipcRenderer.invoke('get-books')
         callback(books)

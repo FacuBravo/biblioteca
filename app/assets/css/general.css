@@ -189,8 +189,14 @@ dialog .dialog_content {
     align-items: end;
 }
 
-.dialog_content>button {
+.dialog_content>button:first-child {
     rotate: 45deg;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.dialog_content>button:nth-child(2) {
     background-color: transparent;
     cursor: pointer;
     transition: transform .5s;

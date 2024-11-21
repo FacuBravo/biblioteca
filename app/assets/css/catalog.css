@@ -192,8 +192,7 @@ body {
 .book_info {
     min-width: 250px;
     width: 30vw;
-    margin: 0 16px 16px 20px;
-    font-size: 28px;
+    font-size: 24px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -225,4 +224,23 @@ body {
     bottom: -40px;
     right: 60px;
     z-index: -1;
+}
+
+#edit_book_btn {
+    position: absolute;
+    top: 16px;
+    right: 52px;
+}
+
+#edit_book_form .send_form_edit_book {
+    position: absolute;
+    top: 16px;
+    right: 52px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+#edit_book_form .send_form_edit_book:hover {
+    transform: scale(.9);
 }
