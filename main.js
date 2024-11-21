@@ -155,7 +155,6 @@ const sessionData = {}
 
 ipcMain.on('set-session', (event, data) => {
     Object.assign(sessionData, data)
-    console.log('Sesion actualizada:', sessionData)
 })
 
 ipcMain.handle('get-session', () => {
@@ -171,7 +170,6 @@ ipcMain.handle('check-session', (event, token) => {
 
 ipcMain.on('clear-session', () => {
     Object.keys(sessionData).forEach(key => delete sessionData[key])
-    console.log('Sesion eliminada')
 })
 
 app.on('window-all-closed', () => {

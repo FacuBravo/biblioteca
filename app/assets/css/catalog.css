@@ -198,3 +198,8 @@ body {
 #delete_book_dialog .options .primary_btn {
     width: 150px;
 }
+
+#book_info_dialog {
+    margin: calc(50vh - 250px) auto;
+    height: 500px;
+}

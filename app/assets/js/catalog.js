@@ -65,6 +65,7 @@ function showBooks() {
     }
 
     document.querySelectorAll('.btn_delete_book').forEach(e => e.addEventListener('click', showDialogDelete))
+    document.querySelectorAll('.btn_book_info').forEach(e => e.addEventListener('click', showDialogInfo))
 }
 
 function filter() {
@@ -294,4 +295,34 @@ function deleteBook() {
             }
         }
     }, idToDelete, token)
+}
+
+const dialogInfo = document.querySelector("#book_info_dialog")
+
+function showDialogInfo(e) {
+    const id = e.target.id.split('_')[3]
+    const index = books.findIndex(o => o.id == id)
+    
+    if (index > -1) {
+        const book = books[index]
+        dialogInfo.showModal()
+        document.querySelector("#close_info_book_dialog_btn").addEventListener("click", closeInfoDialog)
+
+        dialogInfo.querySelector("#book_info_content").innerHTML = ''
+        dialogInfo.querySelector("#book_info_content").innerHTML += `
+            <p>Número de inventario: ${book.id}</p>
+            <p>Título: ${book.title}</p>
+            <p>Autor: ${book.author}</p>
+            <p>Tema: ${book.theme}</p>
+            <p>Colección: ${book.colection}</p>
+            <p>Editorial: ${book.editorial}</p>
+            <p>Edición: ${book.edition}</p>
+            <p>Fecha: ${book.date}</p>
+            <p>Lugar: ${book.place}</p>
+        `
+    }
+}
+
+function closeInfoDialog() {
+    dialogInfo.close()
 }
