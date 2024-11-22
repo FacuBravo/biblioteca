@@ -162,12 +162,6 @@ body {
     color: var(--blue_600);
 }
 
-.sortable {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
 #delete_user_dialog p {
     text-align: center;
     width: 100%;
@@ -191,7 +185,7 @@ body {
 
 .user_info {
     min-width: 250px;
-    width: 30vw;
+    width: 20vw;
     font-size: 24px;
     display: flex;
     flex-direction: column;

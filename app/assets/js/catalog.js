@@ -35,7 +35,7 @@ function checkLogged() {
 }
 
 function getBooks() {
-    window.books.getBooks((booksData) => {
+    window.booksAPI.getBooks((booksData) => {
         books = booksData
         showBooks()
     })
@@ -120,7 +120,7 @@ function addBook(e) {
         collection
     }
 
-    window.books.addBook((book) => {
+    window.booksAPI.addBook((book) => {
         books.push(book)
         showBooks()
         closeAddBookDialog()
@@ -284,7 +284,7 @@ function closeDeleteDialog() {
 }
 
 function deleteBook() {
-    window.books.deleteBook((book) => {
+    window.booksAPI.deleteBook((book) => {
         if (book) {
             const index = books.findIndex(o => o.id === book.id)
 
@@ -396,7 +396,7 @@ function updateBook(e, index) {
 
     closeInfoDialog()
 
-    window.books.updateBook((res) => {
+    window.booksAPI.updateBook((res) => {
         if (res != null) {
             books[index] = bookInfo
             showBooks()

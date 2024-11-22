@@ -16,7 +16,7 @@ contextBridge.exposeInMainWorld('data', {
     }
 })
 
-contextBridge.exposeInMainWorld('books', {
+contextBridge.exposeInMainWorld('booksAPI', {
     addBook: async (callback, bookInfo, token) => {
         let result = await ipcRenderer.invoke('check-session', token)
         if (result) {
