@@ -5,19 +5,19 @@ getNBooks()
 getNLoans()
 
 function getNPartners() {
-    window.electronAPI.getUsersN((partners) => {
+    window.data.getUsersN((partners) => {
         document.querySelector("#charged_users_n").innerHTML = partners
     })
 }
 
 function getNBooks() {
-    window.electronAPI.getBooksN((books) => {
+    window.data.getBooksN((books) => {
         document.querySelector("#charged_books_n").innerHTML = books
     })
 }
 
 function getNLoans() {
-    window.electronAPI.getLoansN((loans) => {
+    window.data.getLoansN((loans) => {
         document.querySelector("#active_loans_n").innerHTML = loans
     })
 }

@@ -32,6 +32,8 @@ app.whenReady().then(() => {
     createWindow()
 })
 
+// DATA
+
 ipcMain.handle('get-partners-n', async () => {
     return new Promise((resolve, reject) => {
         db.all('SELECT COUNT(*) n FROM partner', [], (err, rows) => {
@@ -68,9 +70,60 @@ ipcMain.handle('get-loans-n', async () => {
     })
 })
 
-ipcMain.handle('get-user', async () => {
+// PARTNERS
+
+ipcMain.handle('get-next-partner-id', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM user', [], (err, rows) => {
+        db.get(`SELECT id + 1 AS newId 
+        FROM partner 
+        WHERE (id + 1) NOT IN (SELECT id FROM partner) 
+        ORDER BY id 
+        LIMIT 1`, [], (err, row) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(row ? row.newId : 1)
+            }
+        })
+    })
+})
+
+ipcMain.handle('add-partner', async (event, partnerInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('INSERT INTO partner (id, name, surname, grade, section, type) VALUES (?, ?, ?, ?, ?, ?)',
+            [partnerInfo.id, partnerInfo.name, partnerInfo.surname, partnerInfo.grade, partnerInfo.section, partnerInfo.type], function (err) {
+
+                if (err) {
+                    reject(err)
+                } else {
+                    db.get('SELECT * FROM partner WHERE id = ?', [partnerInfo.id], (err, row) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve(row)
+                        }
+                    })
+                }
+            })
+    })
+})
+
+ipcMain.handle('update-partner', async (event, partnerInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE partner SET name = ?, surname = ?, grade = ?, section = ?, type = ? WHERE id = ?',
+            [partnerInfo.name, partnerInfo.surname, partnerInfo.grade, partnerInfo.section, partnerInfo.type, partnerInfo.id], function (err) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(true)
+                }
+            })
+    })
+})
+
+ipcMain.handle('get-partners', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM partner p ORDER BY p.id', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -79,6 +132,32 @@ ipcMain.handle('get-user', async () => {
         })
     })
 })
+
+ipcMain.handle('get-partner', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.get('SELECT * FROM partner WHERE id = ?', [id], (err, row) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(row)
+            }
+        })
+    })
+})
+
+ipcMain.handle('delete-partner', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.all('DELETE FROM partner WHERE id = ?', [id], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+// BOOKS
 
 ipcMain.handle('get-next-book-id', async () => {
     return new Promise((resolve, reject) => {
@@ -165,6 +244,8 @@ ipcMain.handle('delete-book', async (event, id) => {
     })
 })
 
+// SESSION
+
 const sessionData = {}
 
 ipcMain.on('set-session', (event, data) => {
@@ -185,6 +266,38 @@ ipcMain.handle('check-session', (event, token) => {
 ipcMain.on('clear-session', () => {
     Object.keys(sessionData).forEach(key => delete sessionData[key])
 })
+
+ipcMain.handle('get-user', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM user', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+function addAuthorizedUser() {
+    db.all('SELECT COUNT(*) n FROM user', [], (err, rows) => {
+        if (err) {
+            console.error(err)
+        } else {
+            if (rows[0].n == 0) {
+                db.run(`INSERT INTO user (username, password) VALUES ("biblio56", "$2a$10$tjwsS.FB0pUXX/1vh6QQ6OajbAXhX7PWCS7h2A8iqMrFSQGstnGOy")`, (err) => {
+                    if (err) {
+                        console.error('Error al insertar usuario autorizado:', err.message)
+                    } else {
+                        console.log('Usuario autorizado agregado')
+                    }
+                })
+            }
+        }
+    })
+}
+
+// OTHERS
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -243,30 +356,6 @@ function createTables() {
         }
     })
 
-    // db.run(`CREATE TABLE IF NOT EXISTS author (
-    //         id INTEGER PRIMARY KEY, 
-    //         name varchar(100), 
-    //         surname varchar(100))`, (err) => {
-    //     if (err) {
-    //         console.error('Error al crear la tabla:', err.message)
-    //     } else {
-    //         console.log('Tabla author creada')
-    //     }
-    // })
-
-    // db.run(`CREATE TABLE IF NOT EXISTS author_book (
-    //         id INTEGER PRIMARY KEY, 
-    //         author_id INTEGER, 
-    //         book_id INTEGER,
-    //         FOREIGN KEY (book_id) REFERENCES book (id),
-    //         FOREIGN KEY (author_id) REFERENCES author (id))`, (err) => {
-    //     if (err) {
-    //         console.error('Error al crear la tabla:', err.message)
-    //     } else {
-    //         console.log('Tabla author_book creada')
-    //     }
-    // })
-
     db.run(`CREATE TABLE IF NOT EXISTS loan (
             id INTEGER PRIMARY KEY, 
             date_start DATE, 
@@ -279,24 +368,6 @@ function createTables() {
             console.error('Error al crear la tabla:', err.message)
         } else {
             console.log('Tabla loan creada')
-        }
-    })
-}
-
-function addAuthorizedUser() {
-    db.all('SELECT COUNT(*) n FROM user', [], (err, rows) => {
-        if (err) {
-            console.error(err)
-        } else {
-            if (rows[0].n == 0) {
-                db.run(`INSERT INTO user (username, password) VALUES ("biblio56", "$2a$10$tjwsS.FB0pUXX/1vh6QQ6OajbAXhX7PWCS7h2A8iqMrFSQGstnGOy")`, (err) => {
-                    if (err) {
-                        console.error('Error al insertar usuario autorizado:', err.message)
-                    } else {
-                        console.log('Usuario autorizado agregado')
-                    }
-                })
-            }
         }
     })
 }

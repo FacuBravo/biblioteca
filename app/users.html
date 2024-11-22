@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>Biblioteca | Usuarios</title>
     <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/users.css">
 </head>
 <body>
     <header>
@@ -95,7 +96,35 @@
             </ul>
         </nav>
     </header>
-    
+
+    <main>
+        <section class="top_info">
+            <div class="section_title_container">
+                <h1>Usuarios</h1>
+                <button id="btn_add_user">
+                    <img src="assets/images/icons/Plus_pink.svg" alt="Add User">
+                </button>
+            </div>
+            <div class="searcher">
+                <input type="text" id="searcher_input" placeholder="Buscar...">
+                <img src="assets/images/icons/Lens.svg" alt="Lens">
+            </div>
+        </section>
+
+        <table class="users_table">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Tipo</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody id="table_body"></tbody>
+        </table>
+    </main>
+
     <dialog id="login_dialog">
         <section class="dialog_content">
             <button>
@@ -106,7 +135,7 @@
                         fill="#60A4D3" />
                 </svg>
             </button>
-    
+
             <form id="login_form">
                 <div class="inputs">
                     <div class="primary_input">
@@ -120,11 +149,77 @@
                         <div class="input_background"></div>
                     </div>
                 </div>
-                
+
                 <button class="primary_btn">Iniciar Sesión</button>
             </form>
-    
+
             <p class="message" id="form_login_message"></p>
+        </section>
+    </dialog>
+
+    <dialog id="add_user_dialog">
+        <section class="dialog_content">
+            <button>
+                <svg id="close_add_user_dialog_btn" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.6667 22.6667H17.3333V17.3334H22.6667V14.6667H17.3333V9.33335H14.6667V14.6667H9.33334V17.3334H14.6667V22.6667ZM16 29.3334C14.1556 29.3334 12.4222 28.9834 10.8 28.2834C9.17778 27.5834 7.76667 26.6334 6.56667 25.4334C5.36667 24.2334 4.41667 22.8222 3.71667 21.2C3.01667 19.5778 2.66667 17.8445 2.66667 16C2.66667 14.1556 3.01667 12.4222 3.71667 10.8C4.41667 9.1778 5.36667 7.76669 6.56667 6.56669C7.76667 5.36669 9.17778 4.41669 10.8 3.71669C12.4222 3.01669 14.1556 2.66669 16 2.66669C17.8444 2.66669 19.5778 3.01669 21.2 3.71669C22.8222 4.41669 24.2333 5.36669 25.4333 6.56669C26.6333 7.76669 27.5833 9.1778 28.2833 10.8C28.9833 12.4222 29.3333 14.1556 29.3333 16C29.3333 17.8445 28.9833 19.5778 28.2833 21.2C27.5833 22.8222 26.6333 24.2334 25.4333 25.4334C24.2333 26.6334 22.8222 27.5834 21.2 28.2834C19.5778 28.9834 17.8444 29.3334 16 29.3334ZM16 26.6667C18.9778 26.6667 21.5 25.6334 23.5667 23.5667C25.6333 21.5 26.6667 18.9778 26.6667 16C26.6667 13.0222 25.6333 10.5 23.5667 8.43335C21.5 6.36669 18.9778 5.33335 16 5.33335C13.0222 5.33335 10.5 6.36669 8.43334 8.43335C6.36667 10.5 5.33334 13.0222 5.33334 16C5.33334 18.9778 6.36667 21.5 8.43334 23.5667C10.5 25.6334 13.0222 26.6667 16 26.6667Z"
+                        fill="#60A4D3" />
+                </svg>
+            </button>
+
+            <form id="add_user_form">
+                <div class="inputs">
+                    <input class="secondary_input" name="name" type="text" required placeholder="Nombre">
+                    <input class="secondary_input" name="surname" type="text" required placeholder="Apellido">
+                    <input class="secondary_input" name="grade" type="text" placeholder="Grado">
+                    <input class="secondary_input" name="section" type="text" placeholder="Sección">
+                    <input class="secondary_input" name="type" type="text" placeholder="Tipo">
+                </div>
+
+                <button class="primary_btn">Cargar</button>
+            </form>
+
+            <p class="message" id="form_add_user_message"></p>
+        </section>
+    </dialog>
+
+    <dialog id="delete_user_dialog">
+        <section class="dialog_content">
+            <button>
+                <svg id="close_delete_user_dialog_btn" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.6667 22.6667H17.3333V17.3334H22.6667V14.6667H17.3333V9.33335H14.6667V14.6667H9.33334V17.3334H14.6667V22.6667ZM16 29.3334C14.1556 29.3334 12.4222 28.9834 10.8 28.2834C9.17778 27.5834 7.76667 26.6334 6.56667 25.4334C5.36667 24.2334 4.41667 22.8222 3.71667 21.2C3.01667 19.5778 2.66667 17.8445 2.66667 16C2.66667 14.1556 3.01667 12.4222 3.71667 10.8C4.41667 9.1778 5.36667 7.76669 6.56667 6.56669C7.76667 5.36669 9.17778 4.41669 10.8 3.71669C12.4222 3.01669 14.1556 2.66669 16 2.66669C17.8444 2.66669 19.5778 3.01669 21.2 3.71669C22.8222 4.41669 24.2333 5.36669 25.4333 6.56669C26.6333 7.76669 27.5833 9.1778 28.2833 10.8C28.9833 12.4222 29.3333 14.1556 29.3333 16C29.3333 17.8445 28.9833 19.5778 28.2833 21.2C27.5833 22.8222 26.6333 24.2334 25.4333 25.4334C24.2333 26.6334 22.8222 27.5834 21.2 28.2834C19.5778 28.9834 17.8444 29.3334 16 29.3334ZM16 26.6667C18.9778 26.6667 21.5 25.6334 23.5667 23.5667C25.6333 21.5 26.6667 18.9778 26.6667 16C26.6667 13.0222 25.6333 10.5 23.5667 8.43335C21.5 6.36669 18.9778 5.33335 16 5.33335C13.0222 5.33335 10.5 6.36669 8.43334 8.43335C6.36667 10.5 5.33334 13.0222 5.33334 16C5.33334 18.9778 6.36667 21.5 8.43334 23.5667C10.5 25.6334 13.0222 26.6667 16 26.6667Z"
+                        fill="#60A4D3" />
+                </svg>
+            </button>
+
+            <p>¿Eliminar usuario?</p>
+            <div class="options">
+                <button class="primary_btn" id="sure_delete_user">Aceptar</button>
+            </div>
+
+        </section>
+    </dialog>
+
+    <dialog id="user_info_dialog">
+        <section class="dialog_content">
+            <button>
+                <svg id="close_info_user_dialog_btn" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.6667 22.6667H17.3333V17.3334H22.6667V14.6667H17.3333V9.33335H14.6667V14.6667H9.33334V17.3334H14.6667V22.6667ZM16 29.3334C14.1556 29.3334 12.4222 28.9834 10.8 28.2834C9.17778 27.5834 7.76667 26.6334 6.56667 25.4334C5.36667 24.2334 4.41667 22.8222 3.71667 21.2C3.01667 19.5778 2.66667 17.8445 2.66667 16C2.66667 14.1556 3.01667 12.4222 3.71667 10.8C4.41667 9.1778 5.36667 7.76669 6.56667 6.56669C7.76667 5.36669 9.17778 4.41669 10.8 3.71669C12.4222 3.01669 14.1556 2.66669 16 2.66669C17.8444 2.66669 19.5778 3.01669 21.2 3.71669C22.8222 4.41669 24.2333 5.36669 25.4333 6.56669C26.6333 7.76669 27.5833 9.1778 28.2833 10.8C28.9833 12.4222 29.3333 14.1556 29.3333 16C29.3333 17.8445 28.9833 19.5778 28.2833 21.2C27.5833 22.8222 26.6333 24.2334 25.4333 25.4334C24.2333 26.6334 22.8222 27.5834 21.2 28.2834C19.5778 28.9834 17.8444 29.3334 16 29.3334ZM16 26.6667C18.9778 26.6667 21.5 25.6334 23.5667 23.5667C25.6333 21.5 26.6667 18.9778 26.6667 16C26.6667 13.0222 25.6333 10.5 23.5667 8.43335C21.5 6.36669 18.9778 5.33335 16 5.33335C13.0222 5.33335 10.5 6.36669 8.43334 8.43335C6.36667 10.5 5.33334 13.0222 5.33334 16C5.33334 18.9778 6.36667 21.5 8.43334 23.5667C10.5 25.6334 13.0222 26.6667 16 26.6667Z"
+                        fill="#60A4D3" />
+                </svg>
+            </button>
+            <button id="edit_user_btn">
+                <img src="assets/images/icons/Pencil.svg" alt="">
+            </button>
+
+            <article id="user_info_content" class="user_info"></article>
+            <div class="circle_1"></div>
+            <div class="circle_2"></div>
         </section>
     </dialog>
 

@@ -35,7 +35,7 @@ function checkLogged() {
 }
 
 function getBooks() {
-    window.electronAPI.getBooks((booksData) => {
+    window.books.getBooks((booksData) => {
         books = booksData
         showBooks()
     })
@@ -120,7 +120,7 @@ function addBook(e) {
         collection
     }
 
-    window.electronAPI.addBook((book) => {
+    window.books.addBook((book) => {
         books.push(book)
         showBooks()
         closeAddBookDialog()
@@ -284,7 +284,7 @@ function closeDeleteDialog() {
 }
 
 function deleteBook() {
-    window.electronAPI.deleteBook((book) => {
+    window.books.deleteBook((book) => {
         if (book) {
             const index = books.findIndex(o => o.id === book.id)
 
@@ -396,7 +396,7 @@ function updateBook(e, index) {
 
     closeInfoDialog()
 
-    window.electronAPI.updateBook((res) => {
+    window.books.updateBook((res) => {
         if (res != null) {
             books[index] = bookInfo
             showBooks()

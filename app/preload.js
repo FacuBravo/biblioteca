@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const bcrypt = require('bcryptjs')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('data', {
     getUsersN: async (callback) => {
         let users = await ipcRenderer.invoke('get-partners-n')
         callback(users[0].n)
@@ -13,7 +13,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getLoansN: async (callback) => {
         let loans = await ipcRenderer.invoke('get-loans-n')
         callback(loans[0].n)
-    },
+    }
+})
+
+contextBridge.exposeInMainWorld('books', {
     addBook: async (callback, bookInfo, token) => {
         let result = await ipcRenderer.invoke('check-session', token)
         if (result) {
@@ -49,6 +52,51 @@ contextBridge.exposeInMainWorld('electronAPI', {
             if (book) {
                 await ipcRenderer.invoke('delete-book', id)
                 callback(book)
+            } else {
+                callback(null)
+            }
+        } else {
+            callback(null)
+        }
+    }
+})
+
+contextBridge.exposeInMainWorld('users', {
+    addUser: async (callback, userInfo, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let id = await ipcRenderer.invoke('get-next-partner-id')
+            userInfo.id = id
+            let user = await ipcRenderer.invoke('add-partner', userInfo)
+            callback(user)
+        } else {
+            callback(null)
+        }
+    },
+    updateUser: async (callback, userInfo, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let res = await ipcRenderer.invoke('update-partner', userInfo)
+            if (res) {
+                callback(true)
+            } else {
+                callback(null)
+            }
+        } else {
+            callback(null)
+        }
+    },
+    getUsers: async (callback) => {
+        let users = await ipcRenderer.invoke('get-partners')
+        callback(users)
+    },
+    deleteUser: async (callback, id, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let user = await ipcRenderer.invoke('get-partner', id)
+            if (user) {
+                await ipcRenderer.invoke('delete-partner', id)
+                callback(user)
             } else {
                 callback(null)
             }
