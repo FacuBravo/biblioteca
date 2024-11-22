@@ -345,14 +345,14 @@ function editBook(index) {
             </button>
 
             <div>
-                <input name="author" class="secondary_input" type="text" value="${book.author}" placeholder="Autor" required>, 
+                <input name="author" class="secondary_input" type="text" value="${book.author}" placeholder="Autor" required>
                 <input name="title" class="secondary_input" type="text" value="${book.title}" placeholder="Título" required>
             </div>
 
             <div>
                 <input name="edition" class="secondary_input" type="text" value="${book.edition}" placeholder="Edición"> 
-                <input name="place" class="secondary_input" type="text" value="${book.place}" placeholder="Lugar"> : 
-                <input name="editorial" class="secondary_input" type="text" value="${book.editorial}" placeholder="Editorial">,
+                <input name="place" class="secondary_input" type="text" value="${book.place}" placeholder="Lugar">
+                <input name="editorial" class="secondary_input" type="text" value="${book.editorial}" placeholder="Editorial">
             </div>
 
             <input name="year" class="secondary_input" value="${book.year}" placeholder="Año">
