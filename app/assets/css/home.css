@@ -38,27 +38,6 @@ body {
     text-decoration: none;
 }
 
-/* AUTHORS BENTO */
-
-.authors_bento {
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: end;
-    width: 200px;
-    height: 400px;
-    padding-top: 16px;
-    background: linear-gradient(var(--green_400), var(--green_500));
-    color: var(--green_600);
-    font-family: "Barrio", system-ui;
-    font-size: 20px;
-    transform: translateX(40%);
-    animation: transformUnset .7s both;
-}
-
-.authors_bento h2 {
-    margin-right: 16px;
-}
-
 /* LOAN USER BENTO */
 
 .loan_bento {
@@ -127,21 +106,40 @@ body {
 
 .catalog_bento {
     flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    gap: 84px;
+    justify-content: space-between;
+    align-items: end;
+    width: 200px;
+    height: 400px;
+    padding-top: 16px;
+    background: linear-gradient(var(--blue_400), var(--blue_500));
+    color: var(--blue_600);
+    font-family: "Barrio", system-ui;
+    font-size: 20px;
+    transform: translateX(40%);
+    animation: transformUnset .7s both;
+}
+
+.catalog_bento h2 {
+    margin-right: 16px;
+}
+
+/* REPORTS BENTO */
+
+.reports_bento {
+    align-items: start;
+    justify-content: center;
     width: 200px;
     height: 400px;
     padding: 16px;
-    background: linear-gradient(var(--blue_500), var(--blue_400));
-    color: var(--blue_600);
+    background: linear-gradient(var(--green_400), var(--green_500));
+    color: var(--green_600);
     font-family: "Barrio", system-ui;
     font-size: 20px;
     transform: translateX(-70%);
     animation: transformUnset .7s both;
 }
 
-.catalog_bento h2 {
+.reports_bento h2 {
     text-align: left;
     width: 100%;
 }

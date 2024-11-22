@@ -1,7 +1,7 @@
 const addUserBtn = document.querySelector('#btn_add_user')
 addUserBtn.addEventListener('click', showAddUserDialog)
 
-let libraryUsers = []
+let users = []
 
 getSession()
 
@@ -34,8 +34,8 @@ searcherInput.addEventListener('keyup', filter)
 const dialogAddUser = document.querySelector("#add_user_dialog")
 
 function getUsers() {
-    window.users.getUsers((usersData) => {
-        libraryUsers = usersData
+    window.usersAPI.getUsers((usersData) => {
+        users = usersData
         showUsers()
     })
 }
@@ -44,7 +44,7 @@ function showUsers() {
     const usersTable = document.querySelector("#table_body")
     usersTable.innerHTML = ''
 
-    for (const user of libraryUsers) {
+    for (const user of users) {
         usersTable.innerHTML += `
             <tr class="search_item">
                 <td>${user.id}</td>
@@ -113,8 +113,8 @@ function addUser(e) {
         type
     }
 
-    window.users.addUser((user) => {
-        libraryUsers.push(user)
+    window.usersAPI.addUser((user) => {
+        users.push(user)
         showUsers()
         closeAddUserDialog()
     }, userInfo, token)
@@ -136,13 +136,13 @@ function closeDeleteDialog() {
 }
 
 function deleteUser() {
-    window.users.deleteUser((user) => {
+    window.usersAPI.deleteUser((user) => {
         if (user) {
-            const index = libraryUsers.findIndex(o => o.id === user.id)
+            const index = users.findIndex(o => o.id === user.id)
 
             if (index > -1) {
                 closeDeleteDialog()
-                libraryUsers.splice(index, 1)
+                users.splice(index, 1)
                 showUsers()
             }
         }
@@ -153,10 +153,10 @@ const dialogInfo = document.querySelector("#user_info_dialog")
 
 function showDialogInfo(e) {
     const id = e.target.id.split('_')[3]
-    const index = libraryUsers.findIndex(o => o.id == id)
+    const index = users.findIndex(o => o.id == id)
 
     if (index > -1) {
-        const user = libraryUsers[index]
+        const user = users[index]
         dialogInfo.showModal()
         document.querySelector("#close_info_user_dialog_btn").addEventListener("click", closeInfoDialog)
 
@@ -185,7 +185,7 @@ function closeInfoDialog() {
 let formEditUser
 
 function editUser(index) {
-    const user = libraryUsers[index]
+    const user = users[index]
     dialogInfo.querySelector("#user_info_content").innerHTML = ''
 
     dialogInfo.querySelector("#user_info_content").innerHTML += `
@@ -214,7 +214,7 @@ function editUser(index) {
 
 function updateUser(e, index) {
     e.preventDefault()
-    const id = libraryUsers[index].id
+    const id = users[index].id
 
     const data = Object.fromEntries(
         new FormData(formEditUser)
@@ -236,9 +236,9 @@ function updateUser(e, index) {
 
     closeInfoDialog()
 
-    window.users.updateUser((res) => {
+    window.usersAPI.updateUser((res) => {
         if (res != null) {
-            libraryUsers[index] = userInfo
+            users[index] = userInfo
             showUsers()
         }
     }, userInfo, token)

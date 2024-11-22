@@ -61,7 +61,7 @@ contextBridge.exposeInMainWorld('booksAPI', {
     }
 })
 
-contextBridge.exposeInMainWorld('users', {
+contextBridge.exposeInMainWorld('usersAPI', {
     addUser: async (callback, userInfo, token) => {
         let result = await ipcRenderer.invoke('check-session', token)
         if (result) {
@@ -103,6 +103,13 @@ contextBridge.exposeInMainWorld('users', {
         } else {
             callback(null)
         }
+    }
+})
+
+contextBridge.exposeInMainWorld('authorsAPI', {
+    getAuthors: async (callback) => {
+        let authors = await ipcRenderer.invoke('get-authors')
+        callback(authors)
     }
 })
 

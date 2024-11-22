@@ -244,6 +244,20 @@ ipcMain.handle('delete-book', async (event, id) => {
     })
 })
 
+// AUTHORS
+
+ipcMain.handle('get-authors', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT b.author, COUNT(*) n_books FROM book b GROUP BY b.author ORDER BY n_books DESC', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
 // SESSION
 
 const sessionData = {}
