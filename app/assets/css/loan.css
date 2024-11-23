@@ -1,0 +1,78 @@
+main {
+    height: calc(100vh - 98px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    overflow-x: hidden;
+}
+
+.background_item {
+    background-color: var(--blue_400);
+    height: 132px;
+    width: 1000px;
+    transform: rotate(-45deg);
+    position: absolute;
+    z-index: -15;
+}
+
+.background_item:first-child {
+    top: -15px;
+    left: -200px;
+}
+
+.background_item:nth-child(2) {
+    top: 350px;
+    left: -350px;
+    width: 1200px;
+}
+
+.charge_card {
+    width: 280px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+    box-shadow: 6px 6px 8px rgba(19, 19, 19, 0.5);
+    border-radius: 24px;
+    font-family: "Supermercado One", sans-serif;
+    font-size: 22px;
+}
+
+.charge_book {
+    background-color: var(--green_400);
+    border: 4px solid var(--green_600);
+    color: var(--green_600);
+}
+
+.charge_user {
+    background-color: var(--yellow_400);
+    border: 4px solid var(--orange_600);
+    color: var(--orange_600);
+}
+
+.charge_button {
+    width: 180px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    font-family: "Barrio", system-ui;
+    font-size: 24px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px rgba(19, 19, 19, 0.25);
+    text-decoration: none;
+}
+
+.charge_book .charge_button {
+    background-color: var(--green_600);
+    color: var(--green_400);
+}
+
+.charge_user .charge_button {
+    background-color: var(--orange_600);
+    color: var(--yellow_400);
+}

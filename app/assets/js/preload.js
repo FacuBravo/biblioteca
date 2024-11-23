@@ -113,6 +113,66 @@ contextBridge.exposeInMainWorld('authorsAPI', {
     }
 })
 
+contextBridge.exposeInMainWorld('loansAPI', {
+    addLoan: async (callback, loanInfo, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let loan = await ipcRenderer.invoke('add-loan', loanInfo)
+            callback(loan)
+        } else {
+            callback(null)
+        }
+    },
+    updateLoan: async (callback, loanInfo, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let res = await ipcRenderer.invoke('update-loan', loanInfo)
+            if (res) {
+                callback(true)
+            } else {
+                callback(null)
+            }
+        } else {
+            callback(null)
+        }
+    },
+    getLoans: async (callback) => {
+        let loans = await ipcRenderer.invoke('get-loans')
+        callback(loans)
+    },
+    deleteLoan: async (callback, id, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            let loan = await ipcRenderer.invoke('get-loan', id)
+            if (loan) {
+                await ipcRenderer.invoke('delete-loan', id)
+                callback(loan)
+            } else {
+                callback(null)
+            }
+        } else {
+            callback(null)
+        }
+    },
+    getLoanData: async (callback) => {
+        callback(await ipcRenderer.invoke('get-loan-data'))
+    },
+    setBookForLoan: async (callback, book, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            ipcRenderer.send('set-book-loan', book)
+            callback(true)
+        }
+    },
+    setUserForLoan: async (callback, user, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            ipcRenderer.send('set-user-loan', user)
+            callback(true)
+        }
+    }
+})
+
 contextBridge.exposeInMainWorld('session', {
     setSession: async (callback, data) => {
         let user = (await ipcRenderer.invoke('get-user'))[0]

@@ -11,7 +11,7 @@ const createWindow = () => {
         icon: "app/assets/images/icons/icon.ico",
         webPreferences: {
             nodeIntegration: true,
-            preload: path.join(__dirname, 'app/preload.js')
+            preload: path.join(__dirname, 'app/assets/js/preload.js')
         }
     })
 
@@ -244,6 +244,99 @@ ipcMain.handle('delete-book', async (event, id) => {
     })
 })
 
+// LOANS
+
+ipcMain.handle('add-loan', async (event, loanInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('INSERT INTO loan (date_start, date_end, book_id, partner_id) VALUES (?, ?, ?, ?)',
+            [loanInfo.date_start, loanInfo.date_end, loanInfo.book_id, loanInfo.partner_id], function (err) {
+
+                if (err) {
+                    reject(err)
+                } else {
+                    db.get('SELECT * FROM loan WHERE id = ?', [this.lastID], (err, row) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve(row)
+                        }
+                    })
+                }
+            })
+    })
+})
+
+ipcMain.handle('update-loan', async (event, loanInfo) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE laon SET date_start = ?, date_end = ?, book_id = ?, partner_id = ? WHERE id = ?',
+            [loanInfo.date_start, loanInfo.date_end, loanInfo.book_id, loanInfo.partner_id, loanInfo.id], function (err) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(true)
+                }
+            })
+    })
+})
+
+ipcMain.handle('get-loans', async () => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM loan ORDER BY id', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-loan', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.get('SELECT * FROM loan WHERE id = ?', [id], (err, row) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(row)
+            }
+        })
+    })
+})
+
+ipcMain.handle('delete-loan', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        db.all('DELETE FROM loan WHERE id = ?', [id], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+const bookForLoan = {}, userForLoan = {}
+
+ipcMain.on('set-book-loan', (event, book) => {
+    Object.assign(bookForLoan, book)
+})
+
+ipcMain.on('set-user-loan', (event, user) => {
+    Object.assign(userForLoan, user)
+})
+
+ipcMain.handle('get-loan-data', () => {
+    return {
+        book: bookForLoan,
+        user: userForLoan
+    }
+})
+
+ipcMain.on('clear-loan-data', () => {
+    Object.keys(bookForLoan).forEach(key => delete bookForLoan[key])
+    Object.keys(userForLoan).forEach(key => delete userForLoan[key])
+})
+
 // AUTHORS
 
 ipcMain.handle('get-authors', async () => {
@@ -334,7 +427,7 @@ function createTables() {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {
-            console.log('Tabla user creada')
+            console.log('Tabla user iniciada')
             addAuthorizedUser()
         }
     })
@@ -349,7 +442,7 @@ function createTables() {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {
-            console.log('Tabla partner creada')
+            console.log('Tabla partner iniciada')
         }
     })
 
@@ -366,7 +459,7 @@ function createTables() {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {
-            console.log('Tabla book creada')
+            console.log('Tabla book iniciada')
         }
     })
 
@@ -381,7 +474,7 @@ function createTables() {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {
-            console.log('Tabla loan creada')
+            console.log('Tabla loan iniciada')
         }
     })
 }
