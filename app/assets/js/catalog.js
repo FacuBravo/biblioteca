@@ -59,6 +59,9 @@ function showBooks() {
                     <button class="btn_delete_book ${token == null ? 'hidden' : ''}">
                         <img id="btn_delete_book_${book.id}" src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
+                    <button id="btn_loan_book_${book.id}" class="btn_loan_book ${token == null ? 'hidden' : ''}">
+                        Prestar
+                    </button>
                 </td>
             </tr>
         `
@@ -66,6 +69,18 @@ function showBooks() {
 
     document.querySelectorAll('.btn_delete_book').forEach(e => e.addEventListener('click', showDialogDelete))
     document.querySelectorAll('.btn_book_info').forEach(e => e.addEventListener('click', showDialogInfo))
+    document.querySelectorAll('.btn_loan_book').forEach(e => e.addEventListener('click', lendBook))
+}
+
+function lendBook(e) {
+    const id = e.target.id.split('_')[3]
+    const index = books.findIndex(o => o.id == id)
+    const book = books[index]
+
+    window.loansAPI.setBookForLoan(() => {
+        window.location.href = "loans.html"
+    }, book, token)
+    
 }
 
 function filter() {

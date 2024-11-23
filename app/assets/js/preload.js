@@ -170,7 +170,9 @@ contextBridge.exposeInMainWorld('loansAPI', {
             ipcRenderer.send('set-user-loan', user)
             callback(true)
         }
-    }
+    },
+    clearBookForLoan: () => ipcRenderer.send('clear-book-loan'),
+    clearUserForLoan: () => ipcRenderer.send('clear-user-loan')
 })
 
 contextBridge.exposeInMainWorld('session', {

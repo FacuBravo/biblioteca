@@ -1,3 +1,4 @@
+let loanInfo = null
 getSession()
 
 function getSession() {
@@ -14,22 +15,33 @@ function getSession() {
 }
 
 function checkLogged() {
-    if (token == null) {
-        console.log("NOT LOGGED")
+    if (token != null) {
+        getData()
     } else {
-        // setData()
-        // getData()
+        loanInfo = null
+        printInfo()
     }
 }
 
 function getData() {
     window.loansAPI.getLoanData((loanData) => {
-        console.log(loanData)
+        loanInfo = loanData
+        printInfo()
     }, token)
 }
 
-function setData() {
-    window.loansAPI.setUserIdForLoan(() => {
-        console.log(true)
-    }, { userId: 3 }, token)
+function printInfo() {
+    document.querySelector("#test").innerHTML = ''
+    
+    if (loanInfo == null) {
+        return
+    }
+
+    if (loanInfo.book.id) {
+        document.querySelector("#test").innerHTML += loanInfo.book.title
+    }
+
+    if (loanInfo.user.id) {
+        document.querySelector("#test").innerHTML += loanInfo.user.name
+    }
 }

@@ -71,6 +71,9 @@ function login(e) {
 
 function logout() {
     window.session.clearSession()
+    window.session.clearSession()
+    window.loansAPI.clearBookForLoan()
+    window.loansAPI.clearUserForLoan()
     getSession()
 }
 

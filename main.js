@@ -327,13 +327,16 @@ ipcMain.on('set-user-loan', (event, user) => {
 
 ipcMain.handle('get-loan-data', () => {
     return {
-        book: bookForLoan,
-        user: userForLoan
+        book: bookForLoan ?? null,
+        user: userForLoan ?? null
     }
 })
 
-ipcMain.on('clear-loan-data', () => {
+ipcMain.on('clear-book-loan', () => {
     Object.keys(bookForLoan).forEach(key => delete bookForLoan[key])
+})
+
+ipcMain.on('clear-user-loan', () => {
     Object.keys(userForLoan).forEach(key => delete userForLoan[key])
 })
 

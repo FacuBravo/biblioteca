@@ -58,6 +58,9 @@ function showUsers() {
                     <button class="btn_delete_user ${token == null ? 'hidden' : ''}">
                         <img id="btn_delete_user_${user.id}" src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
+                    <button id="btn_loan_user_${user.id}" class="btn_loan_user ${token == null ? 'hidden' : ''}">
+                        Prestar
+                    </button>
                 </td>
             </tr>
         `
@@ -65,6 +68,18 @@ function showUsers() {
 
     document.querySelectorAll('.btn_delete_user').forEach(e => e.addEventListener('click', showDialogDelete))
     document.querySelectorAll('.btn_user_info').forEach(e => e.addEventListener('click', showDialogInfo))
+    document.querySelectorAll('.btn_loan_user').forEach(e => e.addEventListener('click', lendToUser))
+}
+
+function lendToUser(e) {
+    const id = e.target.id.split('_')[3]
+    const index = users.findIndex(o => o.id == id)
+    const user = users[index]
+
+    window.loansAPI.setUserForLoan(() => {
+        window.location.href = "loans.html"
+    }, user, token)
+    
 }
 
 function filter() {
