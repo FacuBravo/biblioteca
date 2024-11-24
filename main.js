@@ -177,7 +177,7 @@ ipcMain.handle('get-next-book-id', async () => {
 
 ipcMain.handle('add-book', async (event, bookInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, borrowed, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?)',
             [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection], function (err) {
 
                 if (err) {
@@ -192,6 +192,18 @@ ipcMain.handle('add-book', async (event, bookInfo) => {
                     })
                 }
             })
+    })
+})
+
+ipcMain.handle('set-book-state', async (event, id, borrowed) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE book SET borrowed = ? WHERE id = ?', [borrowed, id], function (err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(true)
+            }
+        })
     })
 })
 
@@ -457,6 +469,7 @@ function createTables() {
             place varchar(100) NULL, 
             editorial varchar(100) NULL, 
             year INTEGER NULL,
+            borrowed INTEGER,
             theme varchar(100),
             collection varchar(80) NULL)`, (err) => {
         if (err) {

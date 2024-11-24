@@ -95,7 +95,10 @@ function setLoan(e) {
     document.querySelector("#loan_dialog").style.minHeight = "300px"
 
     window.loansAPI.addLoan((loan) => {
-        console.log(loan)
+        window.booksAPI.updateBookState((res) => {
+            loanInfo = null
+        }, loanInfo.book.id, 1, token)
+
     }, loanData, token)
 }
 

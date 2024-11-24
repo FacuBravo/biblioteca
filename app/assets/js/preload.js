@@ -58,6 +58,15 @@ contextBridge.exposeInMainWorld('booksAPI', {
         } else {
             callback(null)
         }
+    },
+    updateBookState: async (callback, id, borrowed, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            await ipcRenderer.invoke('set-book-state', id, borrowed)
+            callback(true)
+        } else {
+            callback(null)
+        }
     }
 })
 

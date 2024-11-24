@@ -59,7 +59,7 @@ function showBooks() {
                     <button class="btn_delete_book ${token == null ? 'hidden' : ''}">
                         <img id="btn_delete_book_${book.id}" src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
-                    <button id="btn_loan_book_${book.id}" class="btn_loan_book ${token == null ? 'hidden' : ''}">
+                    <button id="btn_loan_book_${book.id}" class="btn_loan_book ${token == null ? 'hidden' : ''} ${book.borrowed == 1 ? 'hidden' : ''}">
                         Prestar
                     </button>
                 </td>
