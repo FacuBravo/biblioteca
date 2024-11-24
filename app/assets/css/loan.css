@@ -76,3 +76,13 @@ main {
     background-color: var(--orange_600);
     color: var(--yellow_400);
 }
+
+.btn_lend_book {
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.btn_lend_book:active {
+    transform: scale(0.8);
+}

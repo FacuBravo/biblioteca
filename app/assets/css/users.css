@@ -97,16 +97,16 @@ body {
 }
 
 .users_table td {
-    width: 28%;
+    width: 27%;
 }
 
 .users_table td:nth-child(1) {
-    width: 6%;
+    width: 5%;
 }
 
 .users_table td:nth-child(5) {
-    width: 10%;
-    justify-content: center;
+    width: 14%;
+    align-items: center;
 }
 
 .users_table tbody tr:nth-child(odd) {
@@ -237,4 +237,11 @@ body {
 
 #edit_user_form .send_form_edit_user:hover {
     transform: scale(.9);
+}
+
+.users_table .actions .btn_loan_user {
+    background-color: var(--orange_600);
+    color: var(--white);
+    padding: 8px 8px;
+    border-radius: 8px;
 }
