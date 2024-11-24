@@ -106,6 +106,8 @@ body {
 
 .books_table td:nth-child(5) {
     width: 14%;
+    text-align: end;
+    justify-content: end;
     align-items: center;
 }
 

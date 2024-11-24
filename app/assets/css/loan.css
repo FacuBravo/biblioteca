@@ -54,12 +54,11 @@ main {
 }
 
 .charge_button {
-    width: 180px;
-    height: 56px;
+    width: 130px;
+    height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 16px;
     font-family: "Barrio", system-ui;
     font-size: 24px;
     border-radius: 8px;
@@ -80,9 +79,75 @@ main {
 .btn_lend_book {
     background-color: transparent;
     cursor: pointer;
-    transition: transform .5s;
+    transition: transform .3s;
 }
 
 .btn_lend_book:active {
     transform: scale(0.8);
+}
+
+.animation_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 12%;
+    z-index: 2;
+    background-color: var(--yellow_400);
+    transition: all .5s;
+}
+
+.animation_container div {
+    display: flex;
+    gap: 80px;
+}
+
+#loan_book {
+    width: 100px;
+    transform: translate(-70px, 10px);
+}
+
+#test {
+    z-index: 3;
+}
+
+#right_hand {
+    width: 100px;
+}
+
+#left_hand {
+    transform: scaleX(-1);
+    width: 100px;
+}
+
+@keyframes loanBookAnimation {
+    100% {
+        transform: translate(70px, 10px);
+    }
+}
+
+#loan_dialog {
+    min-width: 100px;
+    min-height: 100px;
+    transition: all .5s;
+}
+
+#loan_dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 32px;
+}
+
+#loan_dialog input {
+    color: transparent;
+}
+
+#loan_dialog input:focus,
+#loan_dialog input:valid {
+    color: white;
 }
