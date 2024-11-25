@@ -407,7 +407,8 @@ function updateBook(e, index) {
         editorial,
         year,
         theme,
-        collection
+        collection,
+        borrowed: books[index].borrowed
     }
 
     closeInfoDialog()

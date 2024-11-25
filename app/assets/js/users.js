@@ -249,7 +249,8 @@ function updateUser(e, index) {
         surname,
         grade,
         section,
-        type
+        type,
+        active_loans: users[index].active_loans
     }
 
     closeInfoDialog()
