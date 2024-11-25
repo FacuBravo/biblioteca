@@ -23,6 +23,66 @@ function checkLogged() {
         loanInfo = null
         printInfo()
     }
+
+    getLoans()
+}
+
+let loans = []
+
+const searcherInput = document.querySelector('#searcher_input')
+searcherInput.addEventListener('keyup', filter)
+
+function getLoans() {
+    window.loansAPI.getLoans((loansData) => {
+        loans = loansData
+        showLoans()
+    })
+}
+
+function showLoans() {
+    const loansTable = document.querySelector("#table_body")
+    loansTable.innerHTML = ''
+    
+    for (const loan of loans) {
+        loansTable.innerHTML += `
+            <tr class="search_item ${loan.date_end < getCurrentDate() && loan.returned == 0 ? 'late' : ''}">
+                <td>${formatDate(loan.date_start)}</td>
+                <td>${formatDate(loan.date_end)}</td>
+                <td>"${loan.title}" - #${loan.book_id}</td>
+                <td>${loan.name} - #${loan.partner_id}</td>
+                <td class="actions">
+                    <button id="btn_return_book_${loan.book_id}_${loan.id}" class="btn_return_book ${loan.returned == 1 ? 'hidden' : ''}">
+                        Devolver
+                    </button>
+                </td>
+            </tr>
+        `
+    }
+
+    document.querySelectorAll('.btn_return_book').forEach(e => e.addEventListener('click', returnBook))
+}
+
+function returnBook(e) {
+    const arr = e.target.id.split('_')
+    const id = arr[4]
+    const bookId = arr[3]
+    window.booksAPI.updateBookState((res) => {
+        window.loansAPI.updateLoanState((res) => {
+            getLoans()
+        }, id, 1, token)
+    }, bookId, 0, token)
+}
+
+function filter() {
+    const search = searcherInput.value.toLowerCase()
+
+    document.querySelectorAll(".search_item").forEach(item => {
+        if (item.textContent.toLowerCase().includes(search)) {
+            item.classList.remove("hidden_search_item")
+        } else {
+            item.classList.add("hidden_search_item")
+        }
+    })
 }
 
 function getData() {
@@ -97,6 +157,7 @@ function setLoan(e) {
     window.loansAPI.addLoan((loan) => {
         window.booksAPI.updateBookState((res) => {
             loanInfo = null
+            getLoans()
         }, loanInfo.book.id, 1, token)
 
     }, loanData, token)
@@ -108,4 +169,9 @@ function getCurrentDate() {
     const mes = String(fecha.getMonth() + 1).padStart(2, '0')
     const dia = String(fecha.getDate()).padStart(2, '0')
     return `${anio}-${mes}-${dia}`
+}
+
+function formatDate(date) {
+    let arr = date.split('-')
+    return arr[2] + '/' + arr[1] + '/' + arr[0]
 }

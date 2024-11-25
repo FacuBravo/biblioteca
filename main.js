@@ -260,7 +260,7 @@ ipcMain.handle('delete-book', async (event, id) => {
 
 ipcMain.handle('add-loan', async (event, loanInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO loan (date_start, date_end, book_id, partner_id) VALUES (?, ?, ?, ?)',
+        db.run('INSERT INTO loan (date_start, date_end, returned, book_id, partner_id) VALUES (?, ?, 0, ?, ?)',
             [loanInfo.date_start, loanInfo.date_end, loanInfo.book_id, loanInfo.partner_id], function (err) {
 
                 if (err) {
@@ -275,6 +275,18 @@ ipcMain.handle('add-loan', async (event, loanInfo) => {
                     })
                 }
             })
+    })
+})
+
+ipcMain.handle('set-loan-state', async (event, id, returned) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE loan SET returned = ? WHERE id = ?', [returned, id], function (err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(true)
+            }
+        })
     })
 })
 
@@ -293,7 +305,7 @@ ipcMain.handle('update-loan', async (event, loanInfo) => {
 
 ipcMain.handle('get-loans', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM loan ORDER BY id', [], (err, rows) => {
+        db.all('SELECT l.id, l.date_start, l.date_end, l.book_id, l.partner_id, l.returned, p.name, b.title, b.borrowed FROM loan l JOIN partner p ON l.partner_id = p.id JOIN book b ON b.id = l.book_id', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -483,6 +495,7 @@ function createTables() {
             id INTEGER PRIMARY KEY, 
             date_start DATE, 
             date_end DATE, 
+            returned INTEGER,
             book_id INTEGER, 
             partner_id INTEGER,
             FOREIGN KEY (book_id) REFERENCES book (id),

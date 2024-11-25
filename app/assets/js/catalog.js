@@ -62,6 +62,7 @@ function showBooks() {
                     <button id="btn_loan_book_${book.id}" class="btn_loan_book ${token == null ? 'hidden' : ''} ${book.borrowed == 1 ? 'hidden' : ''}">
                         Prestar
                     </button>
+                    <p class="${book.borrowed == 0 ? 'hidden' : ''}">Prestado</p>
                 </td>
             </tr>
         `

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/general.css">
     <link rel="stylesheet" href="assets/css/loan.css">
 </head>
+
 <body>
     <header>
         <img id="burger_btn" src="assets/images/icons/Burger.svg" alt="Burger Menu">
@@ -86,23 +88,50 @@
         <div class="background_item"></div>
         <div class="background_item"></div>
 
-        <article class="charge_book charge_card" id="charge_book_container">
-            <h2>Cargar Libro</h2>
-            <img src="assets/images/icons/Book_green.svg" alt="Book">
-            <p id="info_book"></p>
-            <a href="catalog.html" class="charge_button">Cargar</a>
-        </article>
+        <section class="charge_section">
+            <article class="charge_book charge_card" id="charge_book_container">
+                <h2>Cargar Libro</h2>
+                <img src="assets/images/icons/Book_green.svg" alt="Book">
+                <p id="info_book"></p>
+                <a href="catalog.html" class="charge_button">Cargar</a>
+            </article>
 
-        <button class="btn_lend_book" id="btn_lend_book">
-            <img src="assets/images/icons/Loan_blue.svg" draggable="false" alt="Loan">
-        </button>
+            <button class="btn_lend_book" id="btn_lend_book">
+                <img src="assets/images/icons/Loan_blue.svg" draggable="false" alt="Loan">
+            </button>
 
-        <article class="charge_user charge_card" id="charge_user_container">
-            <h2>Cargar Usuario</h2>
-            <img src="assets/images/icons/User_orange.svg" alt="User">
-            <p id="info_user"></p>
-            <a href="users.html" class="charge_button">Cargar</a>
-        </article>
+            <article class="charge_user charge_card" id="charge_user_container">
+                <h2>Cargar Usuario</h2>
+                <img src="assets/images/icons/User_orange.svg" alt="User">
+                <p id="info_user"></p>
+                <a href="users.html" class="charge_button">Cargar</a>
+            </article>
+        </section>
+
+        <section class="table_section">
+            <section class="top_info">
+                <div class="section_title_container">
+                    <h1>Préstamos</h1>
+                </div>
+                <div class="searcher">
+                    <input type="text" id="searcher_input" placeholder="Buscar...">
+                    <img src="assets/images/icons/Lens.svg" alt="Lens">
+                </div>
+            </section>
+
+            <table class="loans_table">
+                <thead>
+                    <tr>
+                        <td>Inicio</td>
+                        <td>Fin</td>
+                        <td>Libro</td>
+                        <td>Usuario</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody id="table_body"></tbody>
+            </table>
+        </section>
     </main>
 
     <dialog id="login_dialog">
@@ -115,7 +144,7 @@
                         fill="#60A4D3" />
                 </svg>
             </button>
-    
+
             <form id="login_form">
                 <div class="inputs">
                     <div class="primary_input">
@@ -129,10 +158,10 @@
                         <div class="input_background"></div>
                     </div>
                 </div>
-                
+
                 <button class="primary_btn">Iniciar Sesión</button>
             </form>
-    
+
             <p class="message" id="form_login_message"></p>
         </section>
     </dialog>
@@ -154,7 +183,7 @@
                     <span>Fin de préstamo</span>
                     <div class="input_background"></div>
                 </div>
-                
+
                 <button class="primary_btn">Prestar</button>
             </form>
         </section>
@@ -171,4 +200,5 @@
     <script defer src="assets/js/menu.js"></script>
     <script defer src="assets/js/loans.js"></script>
 </body>
+
 </html>

@@ -149,6 +149,15 @@ contextBridge.exposeInMainWorld('loansAPI', {
         let loans = await ipcRenderer.invoke('get-loans')
         callback(loans)
     },
+    updateLoanState: async (callback, id, returned, token) => {
+        let result = await ipcRenderer.invoke('check-session', token)
+        if (result) {
+            await ipcRenderer.invoke('set-loan-state', id, returned)
+            callback(true)
+        } else {
+            callback(null)
+        }
+    },
     deleteLoan: async (callback, id, token) => {
         let result = await ipcRenderer.invoke('check-session', token)
         if (result) {
