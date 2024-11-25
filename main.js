@@ -25,6 +25,15 @@ app.whenReady().then(() => {
             console.error('Error al abrir la base de datos:', err.message)
         } else {
             console.log('Base de datos abierta')
+
+            db.run("PRAGMA foreign_keys = ON", [], (err) => {
+                if (err) {
+                    console.error('Error al activar fk:', err.message)
+                } else {
+                    console.log('Fk activadas')
+                }
+            })
+            
             createTables()
         }
     })
@@ -498,8 +507,12 @@ function createTables() {
             returned INTEGER,
             book_id INTEGER, 
             partner_id INTEGER,
-            FOREIGN KEY (book_id) REFERENCES book (id),
-            FOREIGN KEY (partner_id) REFERENCES partner (id))`, (err) => {
+            FOREIGN KEY (book_id) REFERENCES book (id) 
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE,
+            FOREIGN KEY (partner_id) REFERENCES partner (id) 
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE)`, (err) => {
         if (err) {
             console.error('Error al crear la tabla:', err.message)
         } else {
