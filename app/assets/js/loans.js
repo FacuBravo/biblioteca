@@ -51,9 +51,12 @@ function showLoans() {
                 <td>"${loan.title}" - #${loan.book_id}</td>
                 <td>${loan.name} - #${loan.partner_id}</td>
                 <td class="actions">
-                    <button id="btn_return_book_${loan.book_id}_${loan.id}" class="btn_return_book ${loan.returned == 1 ? 'hidden' : ''}">
+                    <button id="btn_return_book_${loan.book_id}_${loan.id}" class="btn_return_book ${loan.returned == 1 || token == null ? 'hidden' : ''}">
                         Devolver
                     </button>
+                    <span class="${loan.returned == 0 && token != null ? 'hidden' : ''}">
+                        ---
+                    </span>
                 </td>
             </tr>
         `
@@ -157,6 +160,7 @@ function setLoan(e) {
     window.loansAPI.addLoan((loan) => {
         window.booksAPI.updateBookState((res) => {
             loanInfo = null
+            printInfo()
             getLoans()
         }, loanInfo.book.id, 1, token)
 

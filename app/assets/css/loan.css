@@ -2,7 +2,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 64px;
-    overflow-x: hidden;
     margin-top: 128px;
 }
 
@@ -147,6 +146,7 @@ main {
     min-width: 100px;
     min-height: 100px;
     transition: all .5s;
+    overflow: hidden;
 }
 
 #loan_dialog form {
@@ -223,6 +223,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin-bottom: 64px;
 }
 
 .loans_table tbody {

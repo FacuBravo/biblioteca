@@ -45,6 +45,8 @@ function showUsers() {
     usersTable.innerHTML = ''
 
     for (const user of users) {
+        let lead = user.active_loans == 1 && user.type.toLowerCase() != "docente"
+        
         usersTable.innerHTML += `
             <tr class="search_item">
                 <td>${user.id}</td>
@@ -58,9 +60,10 @@ function showUsers() {
                     <button class="btn_delete_user ${token == null ? 'hidden' : ''}">
                         <img id="btn_delete_user_${user.id}" src="assets/images/icons/Trash.svg" alt="Delete">
                     </button>
-                    <button id="btn_loan_user_${user.id}" class="btn_loan_user ${token == null ? 'hidden' : ''}">
+                    <button id="btn_loan_user_${user.id}" class="btn_loan_user ${token == null || lead ? 'hidden' : ''}">
                         Prestar
                     </button>
+                    <p class="${!lead ? 'hidden' : ''}">Préstamo</p>
                 </td>
             </tr>
         `

@@ -123,7 +123,7 @@ ipcMain.handle('update-partner', async (event, partnerInfo) => {
 
 ipcMain.handle('get-partners', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM partner p ORDER BY p.id', [], (err, rows) => {
+        db.all('SELECT p.*, (SELECT 1 FROM loan l WHERE l.partner_id = p.id AND l.returned = 0) as active_loans FROM partner p ORDER BY p.id', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
