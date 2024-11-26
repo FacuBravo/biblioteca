@@ -132,7 +132,10 @@ ipcMain.handle('update-partner', async (event, partnerInfo) => {
 
 ipcMain.handle('get-partners', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT p.*, (SELECT 1 FROM loan l WHERE l.partner_id = p.id AND l.returned = 0) as active_loans FROM partner p ORDER BY p.id', [], (err, rows) => {
+        db.all(`SELECT p.*, 
+            (SELECT 1 FROM loan l WHERE l.partner_id = p.id AND l.returned = 0) as active_loans, 
+            (SELECT 1 FROM loan l WHERE l.partner_id = p.id AND l.date_end < DATE('now') AND l.returned = 0) as state 
+            FROM partner p ORDER BY p.id`, [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -378,18 +381,6 @@ ipcMain.on('clear-user-loan', () => {
 ipcMain.handle('get-authors-with-more-books', async () => {
     return new Promise((resolve, reject) => {
         db.all('SELECT b.author, COUNT(*) n_books FROM book b GROUP BY b.author ORDER BY n_books DESC LIMIT 3', [], (err, rows) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(rows)
-            }
-        })
-    })
-})
-
-ipcMain.handle('get-users-with-debts', async () => {
-    return new Promise((resolve, reject) => {
-        db.all("SELECT p.id, p.name, p.surname, l.date_start, l.date_end FROM partner p JOIN loan l ON l.partner_id = p.id WHERE l.date_end < DATE('now')", [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {

@@ -120,10 +120,6 @@ contextBridge.exposeInMainWorld('reportsAPI', {
         let authors = await ipcRenderer.invoke('get-authors-with-more-books')
         callback(authors)
     },
-    getUsersWithDebts: async (callback) => {
-        let partners = await ipcRenderer.invoke('get-users-with-debts')
-        callback(partners)
-    },
     getMostBorrowedBooks: async (callback) => {
         let books = await ipcRenderer.invoke('get-most-borrowed-books')
         callback(books)

@@ -62,13 +62,14 @@ function showUsers() {
 
     for (const user of users) {
         let lead = user.active_loans == 1 && user.type.toLowerCase() != "docente"
+        let state = user.state ? 'Deuda' : 'Al día'
 
         usersTable.innerHTML += `
             <tr class="search_item">
                 <td>${user.id}</td>
-                <td>${user.name}</td>
-                <td>${user.surname}</td>
+                <td>${user.surname}, ${user.name}</td>
                 <td>${user.type}</td>
+                <td>${state}</td>
                 <td class="actions">
                     <button class="btn_user_info">
                         <img id="btn_user_info_${user.id}" src="assets/images/icons/Info.svg" alt="See more">
