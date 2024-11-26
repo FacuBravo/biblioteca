@@ -6,7 +6,7 @@ addBookBtn.addEventListener('click', showAddBookDialog)
 window.addEventListener('keyup', (e) => {
     switch (e.key) {
         case 'n':
-            if (!(document.activeElement === searcherInput)) {
+            if (document.activeElement === document.getElementById('body')) {
                 showAddUserDialog()
             }
             break;
