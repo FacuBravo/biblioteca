@@ -373,11 +373,59 @@ ipcMain.on('clear-user-loan', () => {
     Object.keys(userForLoan).forEach(key => delete userForLoan[key])
 })
 
-// AUTHORS
+// REPORTS
 
-ipcMain.handle('get-authors', async () => {
+ipcMain.handle('get-authors-with-more-books', async () => {
     return new Promise((resolve, reject) => {
         db.all('SELECT b.author, COUNT(*) n_books FROM book b GROUP BY b.author ORDER BY n_books DESC', [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-users-with-debts', async () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT p.id, p.name, p.surname, l.date_start, l.date_end FROM partner p JOIN loan l ON l.partner_id = p.id WHERE l.date_end < DATE('now')", [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-most-borrowed-books', async () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT b.id, b.title, b.author, COUNT(l.id) n_borrowed FROM book b JOIN loan l ON l.book_id = b.id GROUP BY b.id ORDER BY n_borrowed DESC", [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-most-popular-themes', async () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT b.theme, COUNT(l.id) n_borrowed FROM book b JOIN loan l ON l.book_id = b.id GROUP BY b.theme ORDER BY n_borrowed DESC LIMIT 3", [], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+})
+
+ipcMain.handle('get-most-reader-section', async () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT p.grade, p.section, COUNT(l.id) n_borrowed FROM partner p JOIN loan l ON l.partner_id = p.id GROUP BY p.grade, p.section ORDER BY n_borrowed DESC LIMIT 3", [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
