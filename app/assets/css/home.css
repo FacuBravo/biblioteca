@@ -126,12 +126,12 @@ body {
 /* REPORTS BENTO */
 
 .reports_bento {
-    align-items: start;
+    align-items: end;
     justify-content: center;
     width: 200px;
     height: 400px;
     padding: 16px;
-    background: linear-gradient(var(--green_400), var(--green_500));
+    background: linear-gradient(var(--green_500), var(--green_400));
     color: var(--green_600);
     font-family: "Barrio", system-ui;
     font-size: 20px;
