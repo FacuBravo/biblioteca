@@ -3,6 +3,21 @@ searcherInput.addEventListener('keyup', filter)
 
 const addBookBtn = document.querySelector('#btn_add_book')
 addBookBtn.addEventListener('click', showAddBookDialog)
+window.addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case 'n':
+            if (!(document.activeElement === searcherInput)) {
+                showAddUserDialog()
+            }
+            break;
+        case 'b':
+            searcherInput.focus()
+            break;
+        default:
+            return
+            break;
+    }
+})
 
 const dialogAddBook = document.querySelector("#add_book_dialog")
 
@@ -81,7 +96,7 @@ function lendBook(e) {
     window.loansAPI.setBookForLoan(() => {
         window.location.href = "loans.html"
     }, book, token)
-    
+
 }
 
 function filter() {

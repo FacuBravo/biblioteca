@@ -1,5 +1,24 @@
+const searcherInput = document.querySelector('#searcher_input')
+searcherInput.addEventListener('keyup', filter)
+
 const addUserBtn = document.querySelector('#btn_add_user')
 addUserBtn.addEventListener('click', showAddUserDialog)
+
+window.addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case 'n':
+            if (!(document.activeElement === searcherInput)) {
+                showAddUserDialog()
+            }
+            break;
+        case 'b':
+            searcherInput.focus()
+            break;
+        default:
+            return
+            break;
+    }
+})
 
 let users = []
 
@@ -28,9 +47,6 @@ function checkLogged() {
     getUsers()
 }
 
-const searcherInput = document.querySelector('#searcher_input')
-searcherInput.addEventListener('keyup', filter)
-
 const dialogAddUser = document.querySelector("#add_user_dialog")
 
 function getUsers() {
@@ -46,7 +62,7 @@ function showUsers() {
 
     for (const user of users) {
         let lead = user.active_loans == 1 && user.type.toLowerCase() != "docente"
-        
+
         usersTable.innerHTML += `
             <tr class="search_item">
                 <td>${user.id}</td>
@@ -82,7 +98,7 @@ function lendToUser(e) {
     window.loansAPI.setUserForLoan(() => {
         window.location.href = "loans.html"
     }, user, token)
-    
+
 }
 
 function filter() {
