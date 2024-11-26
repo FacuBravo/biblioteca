@@ -7,6 +7,13 @@ main {
     gap: 20px;
 }
 
+body {
+    background-image: url(../images/background_home.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
 .organizator {
     display: flex;
     flex-direction: column;

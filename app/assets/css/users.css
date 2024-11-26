@@ -247,3 +247,8 @@ body {
     padding: 8px 8px;
     border-radius: 8px;
 }
+
+#table_body .debt {
+    background-color: var(--red);
+    color: var(--black);
+}

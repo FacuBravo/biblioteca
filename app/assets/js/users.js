@@ -5,18 +5,18 @@ const addUserBtn = document.querySelector('#btn_add_user')
 addUserBtn.addEventListener('click', showAddUserDialog)
 
 window.addEventListener('keyup', (e) => {
-    switch (e.key) {
-        case 'n':
-            if (document.activeElement === document.getElementById('body')) {
+    if (e.ctrlKey) {
+        switch (e.key) {
+            case 'n':
                 showAddUserDialog()
-            }
-            break;
-        case 'b':
-            searcherInput.focus()
-            break;
-        default:
-            return
-            break;
+                break;
+            case 'f':
+                searcherInput.focus()
+                break;
+            default:
+                return
+                break;
+        }
     }
 })
 
@@ -65,17 +65,17 @@ function showUsers() {
         let state = user.state ? 'Deuda' : 'Al día'
 
         usersTable.innerHTML += `
-            <tr class="search_item">
+            <tr class="search_item ${user.state ? 'debt' : ''}">
                 <td>${user.id}</td>
                 <td>${user.surname}, ${user.name}</td>
                 <td>${user.type}</td>
                 <td>${state}</td>
                 <td class="actions">
                     <button class="btn_user_info">
-                        <img id="btn_user_info_${user.id}" src="assets/images/icons/Info.svg" alt="See more">
+                        <img id="btn_user_info_${user.id}" src="assets/images/icons/Info${user.state ? '_black' : ''}.svg" alt="See more">
                     </button>
                     <button class="btn_delete_user ${token == null ? 'hidden' : ''}">
-                        <img id="btn_delete_user_${user.id}" src="assets/images/icons/Trash.svg" alt="Delete">
+                        <img id="btn_delete_user_${user.id}" src="assets/images/icons/Trash${user.state ? '_black' : ''}.svg" alt="Delete">
                     </button>
                     <button id="btn_loan_user_${user.id}" class="btn_loan_user ${token == null || lead ? 'hidden' : ''}">
                         Prestar

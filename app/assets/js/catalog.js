@@ -3,19 +3,20 @@ searcherInput.addEventListener('keyup', filter)
 
 const addBookBtn = document.querySelector('#btn_add_book')
 addBookBtn.addEventListener('click', showAddBookDialog)
+
 window.addEventListener('keyup', (e) => {
-    switch (e.key) {
-        case 'n':
-            if (document.activeElement === document.getElementById('body')) {
-                showAddUserDialog()
-            }
-            break;
-        case 'b':
-            searcherInput.focus()
-            break;
-        default:
-            return
-            break;
+    if (e.ctrlKey) {
+        switch (e.key) {
+            case 'n':
+                showAddBookDialog()
+                break;
+            case 'f':
+                searcherInput.focus()
+                break;
+            default:
+                return
+                break;
+        }
     }
 })
 
