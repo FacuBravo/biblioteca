@@ -1,0 +1,65 @@
+main {
+    width: 100%;
+    height: calc(100vh - 98px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.organizator {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}
+
+.organizator:first-child {
+    align-items: end;
+}
+
+.report_container {
+    width: fit-content;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 16px;
+}
+
+.report_container h2 {
+    font-size: 28px;
+    font-family: "Barrio", system-ui;
+}
+
+.report_container ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+}
+
+.report_container li {
+    font-size: 20px;
+    font-family: "Supermercado One", system-ui;
+}
+
+.most_borrowed_books_container {
+    background-color: var(--pink_400);
+    color: var(--pink_600);
+}
+
+.most_popular_themes_container {
+    background-color: var(--yellow_400);
+    color: var(--yellow_600);
+}
+
+.most_readers_courses_container {
+    background-color: var(--orange_400);
+    color: var(--orange_600);
+}
+
+.authors_with_more_books_container {
+    background-color: var(--blue_400);
+    color: var(--blue_600);
+}

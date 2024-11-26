@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>Biblioteca | Reportes</title>
     <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/report.css">
 </head>
 <body>
     <header>
@@ -81,7 +82,31 @@
         </nav>
     </header>
 
+    <main>
+        <section class="organizator">
+            <article class="most_borrowed_books_container report_container">
+                <h2>Libros más prestados</h2>
+                <ul id="most_borrowed_books_list"></ul>
+            </article>
 
+            <article class="most_popular_themes_container report_container">
+                <h2>Temas más elegidos</h2>
+                <ul id="most_popular_themes_list"></ul>
+            </article>
+        </section>
+
+        <section class="organizator">
+            <article class="most_readers_courses_container report_container">
+                <h2>Cursos más lectores</h2>
+                <ul id="most_readers_courses_list"></ul>
+            </article>
+    
+            <article class="authors_with_more_books_container report_container">
+                <h2>Autores con más libros</h2>
+                <ul id="authors_with_more_books_list"></ul>
+            </article>
+        </section>
+    </main>
 
     <dialog id="login_dialog">
         <section class="dialog_content">

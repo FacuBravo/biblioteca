@@ -377,7 +377,7 @@ ipcMain.on('clear-user-loan', () => {
 
 ipcMain.handle('get-authors-with-more-books', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT b.author, COUNT(*) n_books FROM book b GROUP BY b.author ORDER BY n_books DESC', [], (err, rows) => {
+        db.all('SELECT b.author, COUNT(*) n_books FROM book b GROUP BY b.author ORDER BY n_books DESC LIMIT 3', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -401,7 +401,7 @@ ipcMain.handle('get-users-with-debts', async () => {
 
 ipcMain.handle('get-most-borrowed-books', async () => {
     return new Promise((resolve, reject) => {
-        db.all("SELECT b.id, b.title, b.author, COUNT(l.id) n_borrowed FROM book b JOIN loan l ON l.book_id = b.id GROUP BY b.id ORDER BY n_borrowed DESC", [], (err, rows) => {
+        db.all("SELECT b.id, b.title, b.author, COUNT(l.id) n_borrowed FROM book b JOIN loan l ON l.book_id = b.id GROUP BY b.id ORDER BY n_borrowed DESC LIMIT 3", [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
