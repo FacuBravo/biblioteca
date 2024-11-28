@@ -4,34 +4,27 @@
   "description": "Manejo de biblioteca",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build:win": "electron-builder --win"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Facundo Bravo <bfacundo176@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "electron": "33.2.0",
-    "electron-builder": "25.1.8"
+    "@electron-forge/cli": "^7.6.0",
+    "@electron-forge/maker-deb": "^7.6.0",
+    "@electron-forge/maker-rpm": "^7.6.0",
+    "@electron-forge/maker-squirrel": "^7.6.0",
+    "@electron-forge/maker-zip": "^7.6.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
+    "@electron-forge/plugin-fuses": "^7.6.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "33.2.0"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "sqlite3": "5.1.7"
-  },
-  "build": {
-    "appId": "com.biblioteca.app",
-    "productName": "Biblioteca",
-    "win": {
-      "target": "nsis",
-      "icon": "app/assets/images/icons/icon.ico"
-    },
-    "files": [
-      "main.js",
-      "app/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "directories": {
-      "output": "dist"
-    }
+    "electron-squirrel-startup": "^1.0.1",
+    "sqlite3": "5.1.7",
+    "xlsx": "^0.18.5"
   }
 }

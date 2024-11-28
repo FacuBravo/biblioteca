@@ -8,7 +8,9 @@ window.addEventListener('keyup', (e) => {
     if (e.ctrlKey) {
         switch (e.key) {
             case 'n':
-                showAddUserDialog()
+                if (token != null) {
+                    showAddUserDialog()
+                }
                 break;
             case 'f':
                 searcherInput.focus()
@@ -53,6 +55,7 @@ function getUsers() {
     window.usersAPI.getUsers((usersData) => {
         users = usersData
         showUsers()
+        document.querySelector("#btn_to_excel").addEventListener('click', usersToExcel)
     })
 }
 
@@ -278,4 +281,28 @@ function updateUser(e, index) {
             showUsers()
         }
     }, userInfo, token)
+}
+
+async function usersToExcel() {
+    const usersDTO = []
+
+    for (const user of users) {
+        let state = user.state ? 'Deuda' : 'Al día'
+        
+        usersDTO.push({
+            ID: user.id,
+            Nombre: user.name,
+            Apellido: user.surname,
+            Grado: user.grade,
+            Sección: user.section,
+            Tipo: user.type,
+            Estado: state,
+        })
+    }
+
+    const filePath = await window.data.openSaveDialog('usuarios.xlsx')
+
+    if (filePath) {
+        window.data.exportToExcel(usersDTO, filePath)
+    }
 }

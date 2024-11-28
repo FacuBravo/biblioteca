@@ -8,7 +8,9 @@ window.addEventListener('keyup', (e) => {
     if (e.ctrlKey) {
         switch (e.key) {
             case 'n':
-                showAddBookDialog()
+                if (token != null) {
+                    showAddBookDialog()                    
+                }
                 break;
             case 'f':
                 searcherInput.focus()
@@ -54,6 +56,7 @@ function getBooks() {
     window.booksAPI.getBooks((booksData) => {
         books = booksData
         showBooks()
+        document.querySelector("#btn_to_excel").addEventListener('click', catalogToExcel)
     })
 }
 
@@ -435,4 +438,31 @@ function updateBook(e, index) {
             showBooks()
         }
     }, bookInfo, token)
+}
+
+async function catalogToExcel() {
+    const booksDTO = []
+
+    for (const book of books) {
+        const borrowed = book.borrowed == 1 ? 'Prestado' : 'Sin prestar'
+
+        booksDTO.push({
+            ID: book.id,
+            Título: book.title,
+            Autor: book.author,
+            Edición: book.edition,
+            Lugar: book.place,
+            Editorial: book.editorial,
+            Año: book.year,
+            Tema: book.theme,
+            Colección: book.collection,
+            Estado: borrowed
+        })
+    }
+
+    const filePath = await window.data.openSaveDialog('catalogo.xlsx')
+
+    if (filePath) {
+        window.data.exportToExcel(booksDTO, filePath)
+    }
 }

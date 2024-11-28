@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron')
 const bcrypt = require('bcryptjs')
 
 contextBridge.exposeInMainWorld('data', {
+    openSaveDialog: (defaultName) => ipcRenderer.invoke('dialog:save-file', defaultName),
+    exportToExcel: (data, filePath) => ipcRenderer.send('export-to-excel', data, filePath),
     getUsersN: async (callback) => {
         let users = await ipcRenderer.invoke('get-partners-n')
         callback(users[0].n)

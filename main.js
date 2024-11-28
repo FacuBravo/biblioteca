@@ -1,11 +1,17 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron')
 const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
+const XLSX = require('xlsx')
+const fs = require('fs')
 
-let db
+let db, mainWindow
+
+if (require('electron-squirrel-startup')) {
+    app.quit()
+}
 
 const createWindow = () => {
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         icon: "app/assets/images/icons/icon.ico",
@@ -33,7 +39,7 @@ app.whenReady().then(() => {
                     console.log('Fk activadas')
                 }
             })
-            
+
             createTables()
         }
     })
@@ -42,6 +48,26 @@ app.whenReady().then(() => {
 })
 
 // DATA
+
+ipcMain.handle('dialog:save-file', async (event, defaultName) => {
+    const result = await dialog.showSaveDialog(mainWindow, {
+        title: 'Guardar archivo Excel',
+        defaultPath: defaultName || 'archivo.xlsx',
+        filters: [{ name: 'Archivos Excel', extensions: ['xlsx'] }],
+    })
+    return result.filePath
+})
+
+ipcMain.on('export-to-excel', (event, data, filePath) => {
+    if (!filePath) return
+
+    const worksheet = XLSX.utils.json_to_sheet(data)
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Hoja1')
+
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' })
+    fs.writeFileSync(filePath, excelBuffer)
+})
 
 ipcMain.handle('get-partners-n', async () => {
     return new Promise((resolve, reject) => {

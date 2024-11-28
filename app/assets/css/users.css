@@ -133,14 +133,14 @@ body {
     display: none;
 }
 
-#btn_add_user {
+.section_title_container .transparent_btn {
     background-color: transparent;
     cursor: pointer;
     height: 32px;
     transition: transform .5s;
 }
 
-#btn_add_user:hover {
+.section_title_container .transparent_btn:hover {
     transform: scale(.9);
 }
 
