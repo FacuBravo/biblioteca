@@ -95,7 +95,7 @@ ipcMain.handle('get-books-n', async () => {
 
 ipcMain.handle('get-loans-n', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT COUNT(*) n FROM loan', [], (err, rows) => {
+        db.all('SELECT COUNT(*) n FROM loan WHERE returned = 0', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
