@@ -22,7 +22,7 @@ const createWindow = () => {
     })
 
     mainWindow.loadFile('app/home.html')
-    // Menu.setApplicationMenu(null)
+    Menu.setApplicationMenu(null)
 }
 
 app.whenReady().then(() => {
