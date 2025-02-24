@@ -10,7 +10,9 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        arch: 'ia32'
+      },
     },
     {
       name: '@electron-forge/maker-zip',
