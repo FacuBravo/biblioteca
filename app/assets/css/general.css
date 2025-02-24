@@ -49,6 +49,7 @@ body {
     background-color: var(--white);
     overflow-x: hidden;
     user-select: none;
+    background-attachment: fixed;
 }
 
 ::-webkit-scrollbar {
