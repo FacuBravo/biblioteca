@@ -67,7 +67,7 @@ function showBooks() {
     for (const book of books) {
         booksTable.innerHTML += `
             <tr class="search_item">
-                <td>${book.id}</td>
+                <td>${book.inventory}</td>
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.theme}</td>
@@ -135,6 +135,7 @@ function addBook(e) {
     const data = Object.fromEntries(
         new FormData(formAddBook)
     )
+    const inventory = +data.inventory
     const title = data.title
     const author = data.author
     const edition = data.edition
@@ -145,6 +146,7 @@ function addBook(e) {
     const collection = data.collection
 
     const bookInfo = {
+        inventory,
         title,
         author,
         edition,
@@ -191,14 +193,14 @@ function sort(e) {
         case 'n':
             if (sortedBy == "id_asc") {
                 books.sort((a, b) => {
-                    return b.id - a.id
+                    return b.inventory - a.inventory
                 })
 
                 categoryImg.style.transform = 'rotate(180deg)'
                 sortedBy = "id_desc"
             } else {
                 books.sort((a, b) => {
-                    return a.id - b.id
+                    return a.inventory - b.inventory
                 })
 
                 categoryImg.style.transform = 'rotate(0deg)'
@@ -380,6 +382,7 @@ function editBook(index) {
             </button>
 
             <div>
+                <input class="secondary_input" name="inventory" type="text" value="${book.inventory}" required placeholder="Número de inventario">
                 <input name="author" class="secondary_input" type="text" value="${book.author}" placeholder="Autor" required>
                 <input name="title" class="secondary_input" type="text" value="${book.title}" placeholder="Título" required>
             </div>
@@ -408,6 +411,7 @@ function updateBook(e, index) {
     const data = Object.fromEntries(
         new FormData(formEditBook)
     )
+    const inventory = data.inventory
     const title = data.title
     const author = data.author
     const edition = data.edition
@@ -419,6 +423,7 @@ function updateBook(e, index) {
 
     const bookInfo = {
         id,
+        inventory,
         title,
         author,
         edition,

@@ -22,7 +22,7 @@ const createWindow = () => {
     })
 
     mainWindow.loadFile('app/home.html')
-    Menu.setApplicationMenu(null)
+    // Menu.setApplicationMenu(null)
 }
 
 app.whenReady().then(() => {
@@ -215,8 +215,8 @@ ipcMain.handle('get-next-book-id', async () => {
 
 ipcMain.handle('add-book', async (event, bookInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO book (id, title, author, edition, place, editorial, year, theme, borrowed, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?)',
-            [bookInfo.id, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection], function (err) {
+        db.run('INSERT INTO book (id, inventory, title, author, edition, place, editorial, year, theme, borrowed, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)',
+            [bookInfo.id, bookInfo.inventory, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection], function (err) {
 
                 if (err) {
                     reject(err)
@@ -247,8 +247,8 @@ ipcMain.handle('set-book-state', async (event, id, borrowed) => {
 
 ipcMain.handle('update-book', async (event, bookInfo) => {
     return new Promise((resolve, reject) => {
-        db.run('UPDATE book SET title = ?, author = ?, edition = ?, place = ?, editorial = ?, year = ?, theme = ?, collection = ? WHERE id = ?',
-            [bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection, bookInfo.id], function (err) {
+        db.run('UPDATE book SET inventory = ?, title = ?, author = ?, edition = ?, place = ?, editorial = ?, year = ?, theme = ?, collection = ? WHERE id = ?',
+            [bookInfo.inventory, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.place, bookInfo.editorial, bookInfo.year, bookInfo.theme, bookInfo.collection, bookInfo.id], function (err) {
                 if (err) {
                     reject(err)
                 } else {
@@ -260,7 +260,7 @@ ipcMain.handle('update-book', async (event, bookInfo) => {
 
 ipcMain.handle('get-books', async () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM book b ORDER BY b.id', [], (err, rows) => {
+        db.all('SELECT * FROM book b ORDER BY b.inventory', [], (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -549,6 +549,7 @@ function createTables() {
 
     db.run(`CREATE TABLE IF NOT EXISTS book (
             id INTEGER PRIMARY KEY, 
+            inventory INTEGER UNIQUE,
             title varchar(150), 
             author varchar(400), 
             edition varchar(100) NULL, 
