@@ -1,5 +1,10 @@
 linux:
-  target: 
-    - target: AppImage
-  category: Utility
-  icon: app/assets/images/icons/icon.png
+    target:
+        - target: AppImage
+    category: Utility
+    icon: app/assets/images/icons/icon.png
+win:
+    target:
+        - target: nsis
+          arch: x64
+    icon: app/assets/images/icons/icon.ico
